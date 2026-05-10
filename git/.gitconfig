@@ -1,0 +1,15 @@
+[user]
+	email = jagadesh.thangavelu@sliceit.com
+	name = slice-jagadesht
+
+[includeIf "gitdir:~/personal/"]
+	path = ~/.gitconfig-personal
+
+[core]
+	excludesfile = ~/.gitignore_global
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
