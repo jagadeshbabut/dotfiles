@@ -1,0 +1,22 @@
+# MCP Server Environment Variables — copy to ~/.mcp-env and fill in tokens
+#   cp ~/personal/jaga-dotfiles/mcp/.mcp-env.template ~/.mcp-env && chmod 600 ~/.mcp-env
+
+# Atlassian (Jira + Confluence)
+# Create API token at: https://id.atlassian.com/manage-profile/security/api-tokens
+export JIRA_USERNAME="jagadesh.thangavelu@sliceit.com"
+export JIRA_API_TOKEN=""
+export CONFLUENCE_USERNAME="jagadesh.thangavelu@sliceit.com"
+export CONFLUENCE_API_TOKEN=""
+
+# GitHub
+# Create token at: https://github.com/settings/tokens
+export GITHUB_PERSONAL_ACCESS_TOKEN=""
+
+# Grafana
+# Create API key in Grafana: Administration > API Keys
+export GRAFANA_URL=""
+export GRAFANA_API_KEY=""
+
+# OpenMemory
+# Get your token at: https://app.openmemory.dev
+export OPENMEMORY_API_TOKEN=""

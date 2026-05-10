@@ -1,0 +1,55 @@
+{
+  "atlassian": {
+    "command": "uvx",
+    "args": ["mcp-atlassian"],
+    "env": {
+      "JIRA_URL": "https://slicepay.atlassian.net",
+      "JIRA_USERNAME": "${JIRA_USERNAME}",
+      "JIRA_API_TOKEN": "${JIRA_API_TOKEN}",
+      "CONFLUENCE_URL": "https://slicepay.atlassian.net/wiki",
+      "CONFLUENCE_USERNAME": "${CONFLUENCE_USERNAME}",
+      "CONFLUENCE_API_TOKEN": "${CONFLUENCE_API_TOKEN}"
+    }
+  },
+  "github": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-github"],
+    "env": {
+      "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+    }
+  },
+  "kubernetes": {
+    "command": "npx",
+    "args": ["-y", "mcp-server-kubernetes"]
+  },
+  "grafana": {
+    "command": "npx",
+    "args": ["-y", "@grafana/mcp-server-grafana"],
+    "env": {
+      "GRAFANA_URL": "${GRAFANA_URL}",
+      "GRAFANA_API_KEY": "${GRAFANA_API_KEY}"
+    }
+  },
+  "aws": {
+    "command": "npx",
+    "args": ["-y", "@aws-mcp/server"],
+    "env": {
+      "AWS_PROFILE": "${AWS_PROFILE}",
+      "AWS_REGION": "${AWS_DEFAULT_REGION}"
+    }
+  },
+  "memory": {
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-memory"],
+    "env": {
+      "MEMORY_FILE_PATH": "${HOME}/.claude/memory.json"
+    }
+  },
+  "openmemory": {
+    "type": "http",
+    "url": "https://api.openmemory.dev/mcp-stream?client=claude",
+    "headers": {
+      "Authorization": "Token ${OPENMEMORY_API_TOKEN}"
+    }
+  }
+}

@@ -167,7 +167,33 @@ EOF
     success "Created $LOCAL_FISH for local overrides (add secrets here)"
 fi
 
-# ── Step 7: macOS defaults ────────────────────────────────────
+# ── Step 7: MCP servers for Claude Code ──────────────────────
+info "Setting up MCP servers for Claude Code..."
+
+if [[ ! -f "$HOME/.mcp-env" ]]; then
+    cp "$DOTFILES/mcp/.mcp-env.template" "$HOME/.mcp-env"
+    chmod 600 "$HOME/.mcp-env"
+    warn "Created ~/.mcp-env from template — fill in your API tokens"
+else
+    success "~/.mcp-env already exists"
+fi
+
+if command -v jq &>/dev/null; then
+    MCP_SERVERS=$(cat "$DOTFILES/mcp/claude-code.json")
+    CLAUDE_JSON="$HOME/.claude.json"
+    if [[ -f "$CLAUDE_JSON" ]]; then
+        jq --argjson mcp "$MCP_SERVERS" '.mcpServers = $mcp' "$CLAUDE_JSON" > /tmp/claude.json.tmp \
+            && mv /tmp/claude.json.tmp "$CLAUDE_JSON"
+        success "MCP servers merged into ~/.claude.json"
+    else
+        echo "{\"mcpServers\": $MCP_SERVERS}" > "$CLAUDE_JSON"
+        success "Created ~/.claude.json with MCP servers"
+    fi
+else
+    warn "jq not found — skipping MCP config (install jq and re-run)"
+fi
+
+# ── Step 8: macOS defaults ────────────────────────────────────
 if confirm "Apply macOS defaults (Dock left, autohide, fast key repeat, Finder settings)?"; then
     bash "$DOTFILES/macos/defaults.sh"
 fi
