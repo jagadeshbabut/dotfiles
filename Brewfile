@@ -28,6 +28,7 @@ brew "fzf"
 # Data processing
 brew "jq"                  # needed for decode-secret, jsonclip
 brew "yq"                  # needed for y2j, j2y
+brew "yamllint"            # YAML linter (uses yamllint/.yamllint.yml)
 
 # AWS tooling
 brew "awscli"

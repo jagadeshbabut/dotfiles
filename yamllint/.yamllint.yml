@@ -1,0 +1,44 @@
+---
+# yamllint config — friendly defaults
+# Symlinked to ~/.yamllint.yml
+# Usage: yamllint <file.yaml>
+
+extends: default
+
+rules:
+  # Allow long lines (k8s manifests, Helm values get verbose)
+  line-length:
+    max: 200
+    allow-non-breakable-inline-mappings: true
+
+  # Require consistent indentation (2 spaces, k8s standard)
+  indentation:
+    spaces: 2
+    indent-sequences: whatever
+
+  # Allow comments without space (common in helm templates)
+  comments:
+    require-starting-space: true
+    ignore-shebangs: true
+    min-spaces-from-content: 1
+
+  # Don't enforce document start marker (---) — optional in k8s
+  document-start: disable
+
+  # Allow duplicate keys to be warned, not errored
+  key-duplicates: enable
+
+  # Truthy values — don't flag "on" / "yes" as errors (common in CI/CD)
+  truthy:
+    check-keys: true
+    allowed-values: ["true", "false", "yes", "no", "on", "off"]
+
+  # Trailing spaces
+  trailing-spaces: enable
+
+  # New line at end of file
+  new-line-at-end-of-file: enable
+
+  # Empty lines
+  empty-lines:
+    max: 2

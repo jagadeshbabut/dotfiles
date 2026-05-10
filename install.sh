@@ -141,6 +141,7 @@ create_symlink "$DOTFILES/aws/config" "$HOME/.aws/config"
 
 # Karabiner
 create_symlink "$DOTFILES/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
+create_symlink "$DOTFILES/yamllint/.yamllint.yml"   "$HOME/.yamllint.yml"
 
 # ── Step 5: Set fish as default shell ─────────────────────────
 FISH_PATH="$(which fish)"
