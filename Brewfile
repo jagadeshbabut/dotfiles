@@ -19,7 +19,15 @@ brew "lazygit"             # terminal UI for git
 
 # Kubernetes
 brew "helm"
+brew "kubectx"             # kubectx + kubens (needed for ctx/ns functions)
 brew "terraform"
+
+# Fuzzy finder (needed for ctx, ns, kexf, klogf, kpff, aws-profile, aws-console)
+brew "fzf"
+
+# Data processing
+brew "jq"                  # needed for decode-secret, jsonclip
+brew "yq"                  # needed for y2j, j2y
 
 # AWS tooling
 brew "awscli"

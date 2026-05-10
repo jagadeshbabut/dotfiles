@@ -99,6 +99,28 @@ create_symlink "$DOTFILES/fish/functions/fish_right_prompt.fish"   "$HOME/.confi
 create_symlink "$DOTFILES/fish/functions/__warp_block.fish"        "$HOME/.config/fish/functions/__warp_block.fish"
 create_symlink "$DOTFILES/fish/aliases.fish"                       "$HOME/.config/fish/aliases.fish"
 
+# Functions
+create_symlink "$DOTFILES/fish/functions/ctx.fish"           "$HOME/.config/fish/functions/ctx.fish"
+create_symlink "$DOTFILES/fish/functions/ns.fish"            "$HOME/.config/fish/functions/ns.fish"
+create_symlink "$DOTFILES/fish/functions/decode-secret.fish" "$HOME/.config/fish/functions/decode-secret.fish"
+create_symlink "$DOTFILES/fish/functions/kgetall.fish"       "$HOME/.config/fish/functions/kgetall.fish"
+create_symlink "$DOTFILES/fish/functions/kexf.fish"          "$HOME/.config/fish/functions/kexf.fish"
+create_symlink "$DOTFILES/fish/functions/klogf.fish"         "$HOME/.config/fish/functions/klogf.fish"
+create_symlink "$DOTFILES/fish/functions/kevents.fish"       "$HOME/.config/fish/functions/kevents.fish"
+create_symlink "$DOTFILES/fish/functions/kpff.fish"          "$HOME/.config/fish/functions/kpff.fish"
+create_symlink "$DOTFILES/fish/functions/aws-profile.fish"   "$HOME/.config/fish/functions/aws-profile.fish"
+create_symlink "$DOTFILES/fish/functions/aws-console.fish"   "$HOME/.config/fish/functions/aws-console.fish"
+create_symlink "$DOTFILES/fish/functions/port.fish"          "$HOME/.config/fish/functions/port.fish"
+create_symlink "$DOTFILES/fish/functions/mkcd.fish"          "$HOME/.config/fish/functions/mkcd.fish"
+create_symlink "$DOTFILES/fish/functions/extract.fish"       "$HOME/.config/fish/functions/extract.fish"
+create_symlink "$DOTFILES/fish/functions/jsonclip.fish"      "$HOME/.config/fish/functions/jsonclip.fish"
+create_symlink "$DOTFILES/fish/functions/y2j.fish"           "$HOME/.config/fish/functions/y2j.fish"
+create_symlink "$DOTFILES/fish/functions/j2y.fish"           "$HOME/.config/fish/functions/j2y.fish"
+create_symlink "$DOTFILES/fish/functions/b64e.fish"          "$HOME/.config/fish/functions/b64e.fish"
+create_symlink "$DOTFILES/fish/functions/b64d.fish"          "$HOME/.config/fish/functions/b64d.fish"
+create_symlink "$DOTFILES/fish/functions/retry.fish"         "$HOME/.config/fish/functions/retry.fish"
+create_symlink "$DOTFILES/fish/functions/watchurl.fish"      "$HOME/.config/fish/functions/watchurl.fish"
+
 # Starship
 create_symlink "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
 
