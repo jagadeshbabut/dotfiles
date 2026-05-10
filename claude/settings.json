@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "theme": "dark-ansi",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "effortLevel": "high",
+  "showTurnDuration": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/rtk-rewrite.sh"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude Code needs your attention\" with title \"Claude Code\"'"
+          }
+        ]
+      }
+    ]
+  },
+  "mcpServers": {
+    "browser-tools-mcp": {
+      "command": "npx",
+      "args": ["-y", "@agentdeskai/browser-tools-mcp@1.2.1"]
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(cd *)",
+      "Bash(ls)",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(mkdir *)",
+      "Bash(which *)",
+      "Bash(chmod *)",
+      "Bash(sudo chmod *)",
+      "Bash(sudo cp *)",
+      "Bash(wc *)",
+      "Bash(wc:*)",
+      "Bash(sort *)",
+      "Bash(head *)",
+      "Bash(head:*)",
+      "Bash(tail *)",
+      "Bash(tail:*)",
+      "Bash(echo *)",
+      "Bash(echo:*)",
+      "Bash(sed *)",
+      "Bash(sed:*)",
+      "Bash(grep *)",
+      "Bash(sleep *)",
+      "Bash(bash:*)",
+
+      "Bash(git status)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git commit:*)",
+      "Bash(git branch *)",
+      "Bash(git stash *)",
+      "Bash(git fetch *)",
+      "Bash(git init)",
+      "Bash(git init *)",
+
+      "Bash(gh auth *)",
+      "Bash(gh auth:*)",
+      "Bash(gh repo *)",
+      "Bash(/opt/homebrew/bin/gh auth:*)",
+      "Bash(/opt/homebrew/bin/gh api:*)",
+
+      "Bash(node *)",
+      "Bash(bun *)",
+      "Bash(bunx playwright:*)",
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Bash(npm install *)",
+      "Bash(npm info:*)",
+      "Bash(npx playwright:*)",
+
+      "Bash(python *)",
+      "Bash(python3 *)",
+      "Bash(python3:*)",
+      "Bash(uv *)",
+      "Bash(uv run *)",
+      "Bash(AWS_ENDPOINT_URL=* uv run *)",
+
+      "Bash(docker build *)",
+      "Bash(docker run *)",
+      "Bash(docker compose *)",
+      "Bash(docker exec *)",
+      "Bash(docker logs *)",
+      "Bash(docker ps)",
+      "Bash(docker ps *)",
+      "Bash(docker-compose *)",
+
+      "Bash(go *)",
+
+      "Bash(make)",
+      "Bash(make *)",
+
+      "Bash(kubectl get *)",
+      "Bash(kubectl describe *)",
+      "Bash(kubectl logs *)",
+      "Bash(kubectl top *)",
+      "Bash(kubectl config get-contexts --no-headers)",
+
+      "Bash(helm list *)",
+      "Bash(helm status *)",
+
+      "Bash(terraform plan *)",
+      "Bash(terraform validate *)",
+      "Bash(terraform fmt *)",
+      "Bash(terraform state list *)",
+      "Bash(terraform state show *)",
+
+      "Bash(brew list)",
+      "Bash(brew list *)",
+      "Bash(brew info *)",
+      "Bash(brew search *)",
+      "Bash(brew install:*)",
+
+      "Bash(curl *)",
+      "Bash(curl:*)",
+
+      "Bash(launchctl load *)",
+      "Bash(launchctl list *)",
+      "Bash(launchctl unload *)",
+      "Bash(launchctl bootstrap *)",
+      "Bash(launchctl bootout *)",
+
+      "Bash(fish:*)",
+      "Bash(starship:*)",
+      "Bash(plutil:*)",
+      "Bash(fc-list:*)",
+
+      "Bash(granted completion:*)",
+      "Bash(granted:*)",
+      "Bash(aws configure list-profiles)",
+
+      "Bash(mise list *)",
+      "Bash(mise use *)",
+      "Bash(yamllint *)",
+      "Bash(shellcheck *)",
+      "Bash(jq *)",
+      "Bash(yq *)",
+
+      "Bash(claude mcp:*)",
+      "Bash(rtk gain:*)",
+
+      "Skill(update-config)",
+
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+
+      "mcp__atlassian__getAccessibleAtlassianResources",
+      "mcp__atlassian__getConfluencePage",
+      "mcp__atlassian__getConfluenceSpaces",
+      "mcp__atlassian__fetchAtlassian",
+      "mcp__atlassian__searchConfluenceUsingCql",
+      "mcp__atlassian__createConfluencePage",
+      "mcp__atlassian__updateConfluencePage",
+
+      "mcp__claude_ai_Atlassian__getAccessibleAtlassianResources",
+      "mcp__claude_ai_Atlassian__getJiraIssue",
+      "mcp__claude_ai_Atlassian__getJiraIssueTypeMetaWithFields",
+      "mcp__claude_ai_Atlassian__getVisibleJiraProjects",
+      "mcp__claude_ai_Atlassian__searchJiraIssuesUsingJql",
+      "mcp__claude_ai_Atlassian__getConfluencePage",
+      "mcp__claude_ai_Atlassian__getConfluenceSpaces",
+      "mcp__claude_ai_Atlassian__searchConfluenceUsingCql",
+      "mcp__claude_ai_Atlassian__createConfluencePage",
+      "mcp__claude_ai_Atlassian__fetch",
+
+      "mcp__claude_ai_Slack__slack_read_thread"
+    ],
+    "deny": [
+      "Bash(sudo rm -rf /)",
+      "Bash(chmod 777 *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(*.pem)",
+      "Read(*.key)",
+      "Read(~/.ssh/**)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(git reset *)",
+      "Bash(git rebase *)",
+      "Bash(kubectl apply *)",
+      "Bash(kubectl delete *)",
+      "Bash(kubectl exec *)",
+      "Bash(kubectl edit *)",
+      "Bash(helm install *)",
+      "Bash(helm upgrade *)",
+      "Bash(helm uninstall *)",
+      "Bash(terraform apply *)",
+      "Bash(terraform destroy *)",
+      "Bash(terraform import *)",
+      "Bash(docker rm *)",
+      "Bash(brew install *)",
+      "Bash(brew uninstall *)",
+      "Bash(rm -rf *)",
+      "Bash(rm -r *)"
+    ]
+  }
+}

@@ -1,7 +1,3 @@
-# Added by OrbStack: 'orb' SSH host for Linux machines
-# This only works if it's at the top of ssh_config (before any Host blocks).
-Include ~/.orbstack/ssh/config
-
 # Work/Organization GitHub account
 Host github.com
     HostName github.com
@@ -13,5 +9,5 @@ Host github.com
 Host github-personal
     HostName github.com
     User git
-    IdentityFile ~/.ssh/jaga-personal
+    IdentityFile ~/.ssh/id_ed25519_personal
     IdentitiesOnly yes

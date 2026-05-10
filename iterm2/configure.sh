@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# iTerm2 setup — links the Jaga dynamic profile and applies global settings.
+# iTerm2 setup — links the Main dynamic profile and applies global settings.
 # Usage: ./iterm2/configure.sh [--yes]
 
 set -euo pipefail
@@ -23,7 +23,7 @@ fi
 
 echo ""
 echo "╔══════════════════════════════════════════════╗"
-echo "║         iTerm2 — Jaga Setup                  ║"
+echo "║         iTerm2 Setup                         ║"
 echo "╚══════════════════════════════════════════════╝"
 echo ""
 
@@ -35,20 +35,25 @@ fi
 
 # ── Dynamic Profile ───────────────────────────────────────────
 # iTerm2 hot-reloads DynamicProfiles — no restart needed.
-info "Linking Jaga dynamic profile..."
+info "Linking Main dynamic profile..."
 
 DYNAMIC_DIR="$HOME/Library/Application Support/iTerm2/DynamicProfiles"
 mkdir -p "$DYNAMIC_DIR"
 
-if [[ -L "$DYNAMIC_DIR/Jaga.json" ]]; then
-    rm "$DYNAMIC_DIR/Jaga.json"
-elif [[ -f "$DYNAMIC_DIR/Jaga.json" ]]; then
-    mv "$DYNAMIC_DIR/Jaga.json" "$DYNAMIC_DIR/Jaga.json.bak"
-    warn "Backed up existing Jaga.json"
+if [[ -L "$DYNAMIC_DIR/Profile.json" ]]; then
+    rm "$DYNAMIC_DIR/Profile.json"
+elif [[ -f "$DYNAMIC_DIR/Profile.json" ]]; then
+    mv "$DYNAMIC_DIR/Profile.json" "$DYNAMIC_DIR/Profile.json.bak"
+    warn "Backed up existing Profile.json"
 fi
 
-ln -sf "$DOTFILES/iterm2/Jaga.json" "$DYNAMIC_DIR/Jaga.json"
-success "Jaga profile linked → $DYNAMIC_DIR/Jaga.json"
+ln -sf "$DOTFILES/iterm2/Profile.json" "$DYNAMIC_DIR/Profile.json"
+success "Main profile linked → $DYNAMIC_DIR/Profile.json"
+
+# ── Dracula Color Scheme ──────────────────────────────────────
+info "Importing Dracula color scheme..."
+open "$DOTFILES/iterm2/Dracula.itermcolors"
+success "Dracula imported — select it in Profiles → Colors → Color Presets if needed"
 
 # ── Global Settings ───────────────────────────────────────────
 info "Applying global iTerm2 settings..."
@@ -95,17 +100,18 @@ echo "╔═══════════════════════�
 echo "║       iTerm2 Configuration Complete!         ║"
 echo "╚══════════════════════════════════════════════╝"
 echo ""
-info "Profile 'Jaga' is live — select it in iTerm2 → Profiles."
+info "Profile 'Main' is live — select it in iTerm2 → Profiles."
 info "Profile settings:"
 echo "  - Shell:       fish (/opt/homebrew/bin/fish)"
-echo "  - Working dir: ~/slice"
+echo "  - Working dir: ~/work"
 echo "  - Font:        Monaco 13"
 echo "  - Size:        200 × 40"
 echo "  - Scrollback:  Unlimited"
+echo "  - Bell:        Silenced"
 echo "  - Transparency: 5%  Blur: 10px"
 echo "  - Option keys: Esc+ (word jump with Option+←/→)"
 echo "  - Cursor:      blinking bar"
-echo "  - Colors:      custom dark theme (embedded in profile)"
+echo "  - Colors:      Dracula (import via configure.sh, embedded in profile)"
 echo ""
 warn "Relaunch iTerm2 if the profile doesn't appear immediately."
 echo ""

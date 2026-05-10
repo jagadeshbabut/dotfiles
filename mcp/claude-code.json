@@ -51,5 +51,9 @@
     "headers": {
       "Authorization": "Token ${OPENMEMORY_API_TOKEN}"
     }
+  },
+  "sentry": {
+    "type": "http",
+    "url": "https://mcp.sentry.dev/mcp"
   }
 }

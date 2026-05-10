@@ -1,5 +1,6 @@
 tap "multica-ai/tap"
 tap "umputun/apps"
+tap "hashicorp/tap"
 
 # Shell & prompt
 brew "fish"
@@ -20,7 +21,7 @@ brew "lazygit"             # terminal UI for git
 # Kubernetes
 brew "helm"
 brew "kubectx"             # kubectx + kubens (needed for ctx/ns functions)
-brew "terraform"
+brew "hashicorp/tap/terraform"
 
 # Fuzzy finder (needed for ctx, ns, kexf, klogf, kpff, aws-profile, aws-console)
 brew "fzf"
@@ -61,8 +62,6 @@ brew "umputun/apps/ralphex"
 cask "font-jetbrains-mono-nerd-font"
 
 # Apps
-cask "orbstack"            # Docker + Linux VMs (replaces Docker Desktop)
 cask "maccy"               # Clipboard manager
 
-# Go tools
-go "golang.org/x/tools/gopls"
+brew "gopls"               # Go language server

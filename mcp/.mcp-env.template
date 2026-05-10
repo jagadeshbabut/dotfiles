@@ -1,11 +1,11 @@
 # MCP Server Environment Variables — copy to ~/.mcp-env and fill in tokens
-#   cp ~/personal/jaga-dotfiles/mcp/.mcp-env.template ~/.mcp-env && chmod 600 ~/.mcp-env
+#   cp ~/personal/dotfiles/mcp/.mcp-env.template ~/.mcp-env && chmod 600 ~/.mcp-env
 
 # Atlassian (Jira + Confluence)
 # Create API token at: https://id.atlassian.com/manage-profile/security/api-tokens
-export JIRA_USERNAME="jagadesh.thangavelu@sliceit.com"
+export JIRA_USERNAME=""
 export JIRA_API_TOKEN=""
-export CONFLUENCE_USERNAME="jagadesh.thangavelu@sliceit.com"
+export CONFLUENCE_USERNAME=""
 export CONFLUENCE_API_TOKEN=""
 
 # GitHub

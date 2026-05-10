@@ -1,13 +1,13 @@
 {
   "Profiles": [
     {
-      "Name": "Jaga",
+      "Name": "Main",
       "Guid": "B455A74E-5E92-4662-947A-F8FC7449B0AD",
       "Custom Command": "Yes",
       "Command": "/opt/homebrew/bin/fish",
       "Login Shell": false,
       "Custom Directory": "Yes",
-      "Working Directory": "/Users/jagadeshthangavelu/slice",
+      "Working Directory": "~/work",
 
       "Terminal Type": "xterm-256color",
       "Character Encoding": 4,
@@ -43,6 +43,7 @@
       "Smart Cursor Color": false,
       "Cursor Guide": false,
 
+      "Silence Bell": true,
       "Unlimited Scrollback": true,
       "Scrollback Lines": 50000,
 

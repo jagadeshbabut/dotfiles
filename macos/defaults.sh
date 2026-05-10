@@ -16,7 +16,7 @@ warn()    { echo -e "${YELLOW}[WARN]${NC} $1"; }
 
 echo ""
 echo "╔══════════════════════════════════════════════╗"
-echo "║         macOS Defaults — Jaga Setup          ║"
+echo "║         macOS Defaults                       ║"
 echo "╚══════════════════════════════════════════════╝"
 echo ""
 warn "This will change macOS system settings."

@@ -1,5 +1,5 @@
 [user]
-	email = jagadesh.thangavelu@sliceit.com
+	email = jagadesh.thangavelu@slicebank.com
 	name = slice-jagadesht
 
 [includeIf "gitdir:~/personal/"]

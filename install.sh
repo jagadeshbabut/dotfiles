@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # ╔══════════════════════════════════════════════════════════════╗
-# ║           jaga-dotfiles — One-Command Installer              ║
+# ║           dotfiles — One-Command Installer                   ║
 # ║                                                              ║
-# ║   Usage: git clone <repo> ~/personal/jaga-dotfiles           ║
-# ║          cd ~/personal/jaga-dotfiles && ./install.sh         ║
+# ║   Usage: git clone <repo> ~/personal/dotfiles                ║
+# ║          cd ~/personal/dotfiles && ./install.sh              ║
 # ║   One-click: ./install.sh --yes                              ║
 # ╚══════════════════════════════════════════════════════════════╝
 
@@ -30,7 +30,7 @@ error()   { echo -e "${RED}[ERROR]${NC} $1"; }
 
 echo ""
 echo "╔══════════════════════════════════════════════╗"
-echo "║         jaga-dotfiles Installer              ║"
+echo "║         dotfiles Installer                   ║"
 echo "╚══════════════════════════════════════════════╝"
 echo ""
 
@@ -49,8 +49,11 @@ fi
 
 # ── Step 2: Brew bundle ───────────────────────────────────────
 info "Installing tools from Brewfile..."
-brew bundle --file="$DOTFILES/Brewfile"
-success "Brew packages installed"
+if brew bundle --file="$DOTFILES/Brewfile"; then
+    success "Brew packages installed"
+else
+    warn "Some Brewfile dependencies failed — run 'brew bundle install' manually to retry"
+fi
 
 # ── Step 3: Backup existing configs ──────────────────────────
 info "Backing up existing configs to $BACKUP_DIR"
@@ -180,7 +183,7 @@ else
 fi
 
 if command -v jq &>/dev/null; then
-    MCP_SERVERS=$(cat "$DOTFILES/mcp/claude-code.json")
+    MCP_SERVERS=$(sed "s|\${HOME}|$HOME|g" "$DOTFILES/mcp/claude-code.json")
     CLAUDE_JSON="$HOME/.claude.json"
     if [[ -f "$CLAUDE_JSON" ]]; then
         jq --argjson mcp "$MCP_SERVERS" '.mcpServers = $mcp' "$CLAUDE_JSON" > /tmp/claude.json.tmp \
@@ -194,14 +197,47 @@ else
     warn "jq not found — skipping MCP config (install jq and re-run)"
 fi
 
-# ── Step 8: iTerm2 ───────────────────────────────────────────
+# ── Step 8: Claude Code config ───────────────────────────────
+info "Setting up Claude Code config..."
+
+mkdir -p "$HOME/.claude/hooks"
+mkdir -p "$HOME/.claude/commands"
+mkdir -p "$HOME/.claude/scripts"
+
+# CLAUDE.md and RTK.md — symlink
+create_symlink "$DOTFILES/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
+create_symlink "$DOTFILES/claude/RTK.md"    "$HOME/.claude/RTK.md"
+
+# settings.json — copy with $HOME expansion (hook path must be absolute)
+CLAUDE_SETTINGS="$HOME/.claude/settings.json"
+if [[ -f "$CLAUDE_SETTINGS" && ! -L "$CLAUDE_SETTINGS" ]]; then
+    cp "$CLAUDE_SETTINGS" "$BACKUP_DIR/claude-settings.json" 2>/dev/null && warn "Backed up $CLAUDE_SETTINGS"
+fi
+sed "s|\$HOME|$HOME|g" "$DOTFILES/claude/settings.json" > "$CLAUDE_SETTINGS"
+success "Written $CLAUDE_SETTINGS (hook path expanded)"
+
+# RTK rewrite hook
+create_symlink "$DOTFILES/claude/hooks/rtk-rewrite.sh" "$HOME/.claude/hooks/rtk-rewrite.sh"
+chmod +x "$HOME/.claude/hooks/rtk-rewrite.sh"
+
+# Slash commands
+create_symlink "$DOTFILES/claude/commands/github-repo-audit.md" "$HOME/.claude/commands/github-repo-audit.md"
+create_symlink "$DOTFILES/claude/commands/incident-audit.md"    "$HOME/.claude/commands/incident-audit.md"
+create_symlink "$DOTFILES/claude/commands/setup-aws-laptop.md"  "$HOME/.claude/commands/setup-aws-laptop.md"
+
+# Scripts
+create_symlink "$DOTFILES/claude/scripts/incident_audit.py" "$HOME/.claude/scripts/incident_audit.py"
+
+success "Claude Code config installed"
+
+# ── Step 9: iTerm2 ───────────────────────────────────────────
 if ls /Applications/iTerm.app &>/dev/null; then
-    if confirm "Configure iTerm2 (Jaga profile, global settings, fish integration)?"; then
+    if confirm "Configure iTerm2 (Main profile, global settings, fish integration)?"; then
         bash "$DOTFILES/iterm2/configure.sh" --yes
     fi
 fi
 
-# ── Step 9: macOS defaults ────────────────────────────────────
+# ── Step 10: macOS defaults ──────────────────────────────────
 if confirm "Apply macOS defaults (Dock left, autohide, fast key repeat, Finder settings)?"; then
     bash "$DOTFILES/macos/defaults.sh"
 fi
@@ -219,7 +255,7 @@ echo "  1. Open a new terminal (fish shell)"
 echo "  2. Add secrets to ~/.config/fish/local.fish (GITHUB_TOKEN, etc.)"
 echo "  3. Run 'aws-login' to authenticate with AWS SSO"
 echo "  4. Run 'assume <profile>' to switch AWS profiles"
-echo "  5. Add SSH keys: ~/.ssh/id_ed25519 (work) and ~/.ssh/jaga-personal (personal)"
+echo "  5. Add SSH keys: ~/.ssh/id_ed25519 (work) and ~/.ssh/id_ed25519_personal (personal)"
 echo ""
 info "Quick reference:"
 echo "  aws-login          → Authenticate all AWS SSO profiles"
