@@ -1,5 +1,8 @@
 set -g -x PATH /usr/local/bin:/opt/homebrew/bin /opt/homebrew/sbin $PATH
 
+# Aliases
+source ~/.config/fish/aliases.fish
+
 # OrbStack integration
 source ~/.orbstack/shell/init.fish 2>/dev/null || true
 set -gx DOCKER_HOST "unix://$HOME/.orbstack/run/docker.sock"

@@ -7,6 +7,20 @@ brew "starship"
 brew "figlet"
 brew "virtualfish"
 
+# Modern CLI replacements
+brew "eza"                 # ls with icons + git status
+brew "bat"                 # cat with syntax highlighting
+brew "ripgrep"             # grep replacement
+brew "delta"               # git diff with syntax highlighting
+brew "htop"                # top replacement
+
+# Git extras
+brew "lazygit"             # terminal UI for git
+
+# Kubernetes
+brew "helm"
+brew "terraform"
+
 # AWS tooling
 brew "awscli"
 brew "granted"

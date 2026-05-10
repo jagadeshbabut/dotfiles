@@ -97,6 +97,7 @@ create_symlink "$DOTFILES/fish/functions/aws-status.fish"          "$HOME/.confi
 create_symlink "$DOTFILES/fish/functions/fish_prompt.fish"         "$HOME/.config/fish/functions/fish_prompt.fish"
 create_symlink "$DOTFILES/fish/functions/fish_right_prompt.fish"   "$HOME/.config/fish/functions/fish_right_prompt.fish"
 create_symlink "$DOTFILES/fish/functions/__warp_block.fish"        "$HOME/.config/fish/functions/__warp_block.fish"
+create_symlink "$DOTFILES/fish/aliases.fish"                       "$HOME/.config/fish/aliases.fish"
 
 # Starship
 create_symlink "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
