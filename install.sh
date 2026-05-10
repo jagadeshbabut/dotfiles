@@ -194,7 +194,14 @@ else
     warn "jq not found — skipping MCP config (install jq and re-run)"
 fi
 
-# ── Step 8: macOS defaults ────────────────────────────────────
+# ── Step 8: iTerm2 ───────────────────────────────────────────
+if ls /Applications/iTerm.app &>/dev/null; then
+    if confirm "Configure iTerm2 (Jaga profile, global settings, fish integration)?"; then
+        bash "$DOTFILES/iterm2/configure.sh" --yes
+    fi
+fi
+
+# ── Step 9: macOS defaults ────────────────────────────────────
 if confirm "Apply macOS defaults (Dock left, autohide, fast key repeat, Finder settings)?"; then
     bash "$DOTFILES/macos/defaults.sh"
 fi
