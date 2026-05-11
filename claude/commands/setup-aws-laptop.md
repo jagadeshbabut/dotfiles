@@ -28,165 +28,22 @@ Verify with: `aws --version`, `granted --version`, `kubectl version --client`
 
 ## Phase 2 — AWS Config
 
-Write the following exactly to `~/.aws/config` (create `~/.aws/` directory if needed).
-Do NOT overwrite if the file already contains `[sso-session slice-sso]` — ask the user first.
+`~/.aws/config` is managed by dotfiles — `install.sh` symlinks it from `aws/config` in the repo.
 
-```ini
-[sso-session slice-sso]
-#
-sso_start_url           = https://d-9f67050f34.awsapps.com/start/
-sso_region              = ap-south-1
-sso_registration_scopes = sso:account:access
-
-[default]
-sso_session    = slice-sso
-sso_start_url  = https://d-9f67050f34.awsapps.com/start/
-sso_region     = ap-south-1
-
-[profile audit-account]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 774305599951
-granted_sso_role_name      = ne-audit-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile audit-account
-
-[profile log-archive]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 982534379409
-granted_sso_role_name      = ne-log-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile log-archive
-
-[profile terraform-account-factory]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 539247487200
-granted_sso_role_name      = ne-tf-account-factory-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile terraform-account-factory
-
-[profile backup]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 869935075933
-granted_sso_role_name      = ne-backup-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile backup
-
-[profile it-applications]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 039612850790
-granted_sso_role_name      = ne-it-applications-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile it-applications
-
-[profile non-prod-analytics]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 221082179410
-granted_sso_role_name      = ne-non-prod-analytics-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile non-prod-analytics
-
-[profile non-prod-banking]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 575108958249
-granted_sso_role_name      = ne-non-prod-banking-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile non-prod-banking
-
-[profile non-prod-dso]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 288761739962
-granted_sso_role_name      = ne-non-prod-dso-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile non-prod-dso
-
-[profile non-prod-networking]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 872515258109
-granted_sso_role_name      = ne-non-prod-networking-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile non-prod-networking
-
-[profile non-prod-non-banking]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 879381256642
-granted_sso_role_name      = ne-non-prod-non-bank-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile non-prod-non-banking
-
-[profile prod-analytics]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 820242914423
-granted_sso_role_name      = ne-prod-analytics-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile prod-analytics
-
-[profile prod-banking]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 762233762623
-granted_sso_role_name      = ne-prod-banking-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile prod-banking
-
-[profile prod-dso]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 122610482619
-granted_sso_role_name      = ne-prod-dso-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile prod-dso
-
-[profile prod-networking]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 182399705178
-granted_sso_role_name      = ne-prod-networking-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile prod-networking
-
-[profile prod-non-banking]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 490004614555
-granted_sso_role_name      = ne-prod-non-banking-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile prod-non-banking
-
-[profile prod-pci]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 905990871300
-granted_sso_role_name      = ne-prod-pci-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile prod-pci
-
-[profile prod-vendor]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 961341521203
-granted_sso_role_name      = ne-prod-vendor-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile prod-vendor
-
-[profile shared-services]
-granted_sso_start_url      = `https://d-9f67050f34.awsapps.com/start/#`
-granted_sso_region         = ap-south-1
-granted_sso_account_id     = 145628349555
-granted_sso_role_name      = nesfb-shared-services-admin-sso
-common_fate_generated_from = aws-sso
-credential_process         = granted credential-process --profile shared-services
+Check if the symlink is already in place:
+```bash
+ls -la ~/.aws/config
 ```
+
+If it's a symlink pointing to the dotfiles repo, skip to Phase 3.
+
+If it's missing or a plain file, run `install.sh` first, or manually symlink:
+```bash
+mkdir -p ~/.aws
+ln -sf ~/personal/dotfiles/aws/config ~/.aws/config
+```
+
+Then fill in `aws/config` with your org's SSO portal URL, account IDs, and role names — one `[profile ...]` block per AWS account. See the file for the required structure.
 
 ---
 
@@ -205,9 +62,9 @@ alias assume="source /opt/homebrew/bin/assume.fish"
 
 ### 3.3 Write ~/.config/fish/functions/aws-login.fish
 ```fish
-function aws-login --description "Morning AWS SSO login - authenticates all profiles via slice-sso"
-    set -l sso_session "slice-sso"
-    set -l sso_url "https://d-9f67050f34.awsapps.com/start/"
+function aws-login --description "Morning AWS SSO login - authenticates all profiles via work-sso"
+    set -l sso_session "work-sso"
+    set -l sso_url "https://YOUR_SSO_ID.awsapps.com/start/"
 
     echo "Logging into AWS SSO ($sso_session)..."
     echo "URL: $sso_url"
@@ -267,7 +124,7 @@ end
 ### 4.1 Login to SSO
 Tell the user: "A browser window will open. Log in with your SSO credentials."
 ```bash
-aws sso login --sso-session slice-sso
+aws sso login --sso-session work-sso
 ```
 
 ### 4.2 Add all EKS clusters to kubeconfig

@@ -55,7 +55,12 @@ else
     warn "Some Brewfile dependencies failed — run 'brew bundle install' manually to retry"
 fi
 
-# ── Step 3: Backup existing configs ──────────────────────────
+# ── Step 3: Create standard directories ──────────────────────
+info "Creating standard directories..."
+mkdir -p "$HOME/personal" "$HOME/work" "$HOME/Screenshots"
+success "Directories: ~/personal ~/work ~/Screenshots"
+
+# ── Step 4: Backup existing configs ──────────────────────────
 info "Backing up existing configs to $BACKUP_DIR"
 mkdir -p "$BACKUP_DIR"
 
@@ -74,7 +79,7 @@ backup_if_exists "$HOME/.ssh/config"
 backup_if_exists "$HOME/.aws/config"
 backup_if_exists "$HOME/.config/karabiner/karabiner.json"
 
-# ── Step 4: Symlinks ─────────────────────────────────────────
+# ── Step 5: Symlinks ─────────────────────────────────────────
 info "Creating symlinks..."
 
 create_symlink() {
@@ -90,39 +95,17 @@ create_symlink() {
     success "Linked $dest → $src"
 }
 
-# Fish shell
-create_symlink "$DOTFILES/fish/config.fish"                        "$HOME/.config/fish/config.fish"
-create_symlink "$DOTFILES/fish/conf.d/virtualfish-loader.fish"     "$HOME/.config/fish/conf.d/virtualfish-loader.fish"
-create_symlink "$DOTFILES/fish/conf.d/fish_frozen_key_bindings.fish" "$HOME/.config/fish/conf.d/fish_frozen_key_bindings.fish"
-create_symlink "$DOTFILES/fish/conf.d/fish_frozen_theme.fish"      "$HOME/.config/fish/conf.d/fish_frozen_theme.fish"
-create_symlink "$DOTFILES/fish/functions/aws-login.fish"           "$HOME/.config/fish/functions/aws-login.fish"
-create_symlink "$DOTFILES/fish/functions/aws-status.fish"          "$HOME/.config/fish/functions/aws-status.fish"
-create_symlink "$DOTFILES/fish/functions/fish_prompt.fish"         "$HOME/.config/fish/functions/fish_prompt.fish"
-create_symlink "$DOTFILES/fish/functions/fish_right_prompt.fish"   "$HOME/.config/fish/functions/fish_right_prompt.fish"
-create_symlink "$DOTFILES/fish/functions/__warp_block.fish"        "$HOME/.config/fish/functions/__warp_block.fish"
-create_symlink "$DOTFILES/fish/aliases.fish"                       "$HOME/.config/fish/aliases.fish"
+# Fish shell — top-level files
+create_symlink "$DOTFILES/fish/config.fish"  "$HOME/.config/fish/config.fish"
+create_symlink "$DOTFILES/fish/aliases.fish" "$HOME/.config/fish/aliases.fish"
 
-# Functions
-create_symlink "$DOTFILES/fish/functions/ctx.fish"           "$HOME/.config/fish/functions/ctx.fish"
-create_symlink "$DOTFILES/fish/functions/ns.fish"            "$HOME/.config/fish/functions/ns.fish"
-create_symlink "$DOTFILES/fish/functions/decode-secret.fish" "$HOME/.config/fish/functions/decode-secret.fish"
-create_symlink "$DOTFILES/fish/functions/kgetall.fish"       "$HOME/.config/fish/functions/kgetall.fish"
-create_symlink "$DOTFILES/fish/functions/kexf.fish"          "$HOME/.config/fish/functions/kexf.fish"
-create_symlink "$DOTFILES/fish/functions/klogf.fish"         "$HOME/.config/fish/functions/klogf.fish"
-create_symlink "$DOTFILES/fish/functions/kevents.fish"       "$HOME/.config/fish/functions/kevents.fish"
-create_symlink "$DOTFILES/fish/functions/kpff.fish"          "$HOME/.config/fish/functions/kpff.fish"
-create_symlink "$DOTFILES/fish/functions/aws-profile.fish"   "$HOME/.config/fish/functions/aws-profile.fish"
-create_symlink "$DOTFILES/fish/functions/aws-console.fish"   "$HOME/.config/fish/functions/aws-console.fish"
-create_symlink "$DOTFILES/fish/functions/port.fish"          "$HOME/.config/fish/functions/port.fish"
-create_symlink "$DOTFILES/fish/functions/mkcd.fish"          "$HOME/.config/fish/functions/mkcd.fish"
-create_symlink "$DOTFILES/fish/functions/extract.fish"       "$HOME/.config/fish/functions/extract.fish"
-create_symlink "$DOTFILES/fish/functions/jsonclip.fish"      "$HOME/.config/fish/functions/jsonclip.fish"
-create_symlink "$DOTFILES/fish/functions/y2j.fish"           "$HOME/.config/fish/functions/y2j.fish"
-create_symlink "$DOTFILES/fish/functions/j2y.fish"           "$HOME/.config/fish/functions/j2y.fish"
-create_symlink "$DOTFILES/fish/functions/b64e.fish"          "$HOME/.config/fish/functions/b64e.fish"
-create_symlink "$DOTFILES/fish/functions/b64d.fish"          "$HOME/.config/fish/functions/b64d.fish"
-create_symlink "$DOTFILES/fish/functions/retry.fish"         "$HOME/.config/fish/functions/retry.fish"
-create_symlink "$DOTFILES/fish/functions/watchurl.fish"      "$HOME/.config/fish/functions/watchurl.fish"
+# Fish conf.d and functions — symlink everything in each directory
+for f in "$DOTFILES/fish/conf.d/"*.fish; do
+    create_symlink "$f" "$HOME/.config/fish/conf.d/$(basename "$f")"
+done
+for f in "$DOTFILES/fish/functions/"*.fish; do
+    create_symlink "$f" "$HOME/.config/fish/functions/$(basename "$f")"
+done
 
 # Starship
 create_symlink "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
@@ -131,6 +114,15 @@ create_symlink "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
 create_symlink "$DOTFILES/git/.gitconfig"          "$HOME/.gitconfig"
 create_symlink "$DOTFILES/git/.gitconfig-personal" "$HOME/.gitconfig-personal"
 create_symlink "$DOTFILES/git/.gitignore_global"   "$HOME/.gitignore_global"
+
+# Git local identity (machine-specific, not symlinked)
+GIT_LOCAL="$HOME/.gitconfig.local"
+if [[ ! -f "$GIT_LOCAL" ]]; then
+    cp "$DOTFILES/git/.gitconfig.local.template" "$GIT_LOCAL"
+    warn "Created $GIT_LOCAL — fill in your work name and email"
+else
+    success "$GIT_LOCAL already exists"
+fi
 
 # SSH
 mkdir -p "$HOME/.ssh"
@@ -146,7 +138,11 @@ create_symlink "$DOTFILES/aws/config" "$HOME/.aws/config"
 create_symlink "$DOTFILES/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
 create_symlink "$DOTFILES/yamllint/.yamllint.yml"   "$HOME/.yamllint.yml"
 
-# ── Step 5: Set fish as default shell ─────────────────────────
+# Warp
+mkdir -p "$HOME/.warp"
+create_symlink "$DOTFILES/warp/settings.toml" "$HOME/.warp/settings.toml"
+
+# ── Step 6: Set fish as default shell ─────────────────────────
 FISH_PATH="$(which fish)"
 if confirm "Set fish as default shell ($FISH_PATH)?"; then
     if ! grep -qF "$FISH_PATH" /etc/shells; then
@@ -156,7 +152,7 @@ if confirm "Set fish as default shell ($FISH_PATH)?"; then
     success "Default shell set to fish"
 fi
 
-# ── Step 6: Create fish local config (for secrets/overrides) ──
+# ── Step 7: Create fish local config (for secrets/overrides) ──
 LOCAL_FISH="$HOME/.config/fish/local.fish"
 if [[ ! -f "$LOCAL_FISH" ]]; then
     cat > "$LOCAL_FISH" << 'EOF'
@@ -171,7 +167,7 @@ EOF
     success "Created $LOCAL_FISH for local overrides (add secrets here)"
 fi
 
-# ── Step 7: MCP servers for Claude Code ──────────────────────
+# ── Step 8: MCP servers for Claude Code ──────────────────────
 info "Setting up MCP servers for Claude Code..."
 
 if [[ ! -f "$HOME/.mcp-env" ]]; then
@@ -197,14 +193,12 @@ else
     warn "jq not found — skipping MCP config (install jq and re-run)"
 fi
 
-# ── Step 8: Claude Code config ───────────────────────────────
+# ── Step 9: Claude Code config ───────────────────────────────
 info "Setting up Claude Code config..."
 
-mkdir -p "$HOME/.claude/hooks"
-mkdir -p "$HOME/.claude/commands"
-mkdir -p "$HOME/.claude/scripts"
+mkdir -p "$HOME/.claude/hooks" "$HOME/.claude/commands" "$HOME/.claude/scripts" "$HOME/.claude/skills"
 
-# CLAUDE.md and RTK.md — symlink
+# CLAUDE.md and RTK.md
 create_symlink "$DOTFILES/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
 create_symlink "$DOTFILES/claude/RTK.md"    "$HOME/.claude/RTK.md"
 
@@ -216,28 +210,34 @@ fi
 sed "s|\$HOME|$HOME|g" "$DOTFILES/claude/settings.json" > "$CLAUDE_SETTINGS"
 success "Written $CLAUDE_SETTINGS (hook path expanded)"
 
-# RTK rewrite hook
+# Hooks
 create_symlink "$DOTFILES/claude/hooks/rtk-rewrite.sh" "$HOME/.claude/hooks/rtk-rewrite.sh"
 chmod +x "$HOME/.claude/hooks/rtk-rewrite.sh"
 
-# Slash commands
-create_symlink "$DOTFILES/claude/commands/github-repo-audit.md" "$HOME/.claude/commands/github-repo-audit.md"
-create_symlink "$DOTFILES/claude/commands/incident-audit.md"    "$HOME/.claude/commands/incident-audit.md"
-create_symlink "$DOTFILES/claude/commands/setup-aws-laptop.md"  "$HOME/.claude/commands/setup-aws-laptop.md"
+# Commands and scripts — symlink everything in each directory
+for f in "$DOTFILES/claude/commands/"*.md; do
+    create_symlink "$f" "$HOME/.claude/commands/$(basename "$f")"
+done
+for f in "$DOTFILES/claude/scripts/"*; do
+    create_symlink "$f" "$HOME/.claude/scripts/$(basename "$f")"
+done
 
-# Scripts
-create_symlink "$DOTFILES/claude/scripts/incident_audit.py" "$HOME/.claude/scripts/incident_audit.py"
+# Skills — each skill dir symlinked individually so unmanaged skills can coexist
+for skill_dir in "$DOTFILES/claude/skills"/*/; do
+    skill_name="$(basename "${skill_dir%/}")"
+    create_symlink "${skill_dir%/}" "$HOME/.claude/skills/$skill_name"
+done
 
 success "Claude Code config installed"
 
-# ── Step 9: iTerm2 ───────────────────────────────────────────
+# ── Step 10: iTerm2 ──────────────────────────────────────────
 if ls /Applications/iTerm.app &>/dev/null; then
     if confirm "Configure iTerm2 (Main profile, global settings, fish integration)?"; then
         bash "$DOTFILES/iterm2/configure.sh" --yes
     fi
 fi
 
-# ── Step 10: macOS defaults ──────────────────────────────────
+# ── Step 11: macOS defaults ──────────────────────────────────
 if confirm "Apply macOS defaults (Dock left, autohide, fast key repeat, Finder settings)?"; then
     bash "$DOTFILES/macos/defaults.sh"
 fi
