@@ -52,6 +52,9 @@ brew "pnpm"
 brew "gh"
 brew "act"                 # run GitHub Actions locally
 
+# Editor
+brew "vim"                 # Vi IMproved
+
 # Dev utilities
 brew "rtk"                 # RTK token-killer proxy for Claude Code
 brew "claude-cmd"

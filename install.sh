@@ -77,6 +77,7 @@ backup_if_exists "$HOME/.gitignore_global"
 backup_if_exists "$HOME/.ssh/config"
 backup_if_exists "$HOME/.aws/config"
 backup_if_exists "$HOME/.config/karabiner/karabiner.json"
+backup_if_exists "$HOME/.vimrc"
 
 # ── Step 4: Symlinks ─────────────────────────────────────────
 info "Creating symlinks..."
@@ -149,6 +150,10 @@ create_symlink "$DOTFILES/aws/config" "$HOME/.aws/config"
 # Karabiner
 create_symlink "$DOTFILES/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
 create_symlink "$DOTFILES/yamllint/.yamllint.yml"   "$HOME/.yamllint.yml"
+
+# Vim
+mkdir -p "$HOME/.vim/undodir"
+create_symlink "$DOTFILES/vim/.vimrc" "$HOME/.vimrc"
 
 # Warp
 mkdir -p "$HOME/.warp"
