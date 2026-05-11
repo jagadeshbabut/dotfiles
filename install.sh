@@ -75,7 +75,6 @@ backup_if_exists "$HOME/.config/starship.toml"
 backup_if_exists "$HOME/.gitconfig"
 backup_if_exists "$HOME/.gitignore_global"
 backup_if_exists "$HOME/.ssh/config"
-backup_if_exists "$HOME/.aws/config"
 backup_if_exists "$HOME/.config/karabiner/karabiner.json"
 backup_if_exists "$HOME/.vimrc"
 
@@ -142,10 +141,6 @@ mkdir -p "$HOME/.ssh"
 chmod 700 "$HOME/.ssh"
 create_symlink "$DOTFILES/ssh/config" "$HOME/.ssh/config"
 chmod 600 "$HOME/.ssh/config"
-
-# AWS
-mkdir -p "$HOME/.aws"
-create_symlink "$DOTFILES/aws/config" "$HOME/.aws/config"
 
 # Karabiner
 create_symlink "$DOTFILES/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"

@@ -58,8 +58,6 @@ assume              # fuzzy profile picker
 assume prod-banking # switch to specific profile
 ```
 
-Profiles managed in `aws/config` (18 accounts across non-prod and prod).
-
 ## File Structure
 
 ```
@@ -90,7 +88,6 @@ Profiles managed in `aws/config` (18 accounts across non-prod and prod).
 │   ├── .gitconfig-personal # Personal identity (auto-applied in ~/personal/)
 │   └── .gitignore_global   # Global gitignore
 ├── ssh/config              # Work + personal GitHub
-├── aws/config              # 18 AWS SSO profiles (slice-sso)
 ├── karabiner/karabiner.json # Cmd↔Option swap for external keyboards
 ├── macos/defaults.sh       # Dock, Finder, keyboard speed settings
 ├── iterm2/

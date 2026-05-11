@@ -17,33 +17,12 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
 
-### 1.2 Core tools
+## 2 Core tools
 Install these via brew if not already present:
 ```bash
 brew install awscli granted fish kubectl
 ```
 Verify with: `aws --version`, `granted --version`, `kubectl version --client`
-
----
-
-## Phase 2 — AWS Config
-
-`~/.aws/config` is managed by dotfiles — `install.sh` symlinks it from `aws/config` in the repo.
-
-Check if the symlink is already in place:
-```bash
-ls -la ~/.aws/config
-```
-
-If it's a symlink pointing to the dotfiles repo, skip to Phase 3.
-
-If it's missing or a plain file, run `install.sh` first, or manually symlink:
-```bash
-mkdir -p ~/.aws
-ln -sf ~/personal/dotfiles/aws/config ~/.aws/config
-```
-
-Then fill in `aws/config` with your org's SSO portal URL, account IDs, and role names — one `[profile ...]` block per AWS account. See the file for the required structure.
 
 ---
 
