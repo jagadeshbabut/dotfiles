@@ -131,7 +131,7 @@ alias brewout='brew outdated'
 
 # ── Misc ──────────────────────────────────────────────────────
 alias reload='exec fish'
-alias path='string join \n $PATH'
+alias showpath='string join \n $PATH'
 alias myip='curl -s ifconfig.me'
 alias localip='ipconfig getifaddr en0'
 alias ports='lsof -i -P -n | grep LISTEN'
