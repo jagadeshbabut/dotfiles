@@ -43,6 +43,9 @@ yarn-debug.log*
 *.tfstate.backup
 .terraform.lock.hcl
 
+# Claude Code
+**/.claude/settings.local.json
+
 # Misc
 *.log
 *.tmp
