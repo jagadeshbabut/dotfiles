@@ -1,6 +1,7 @@
 tap "multica-ai/tap"
 tap "umputun/apps"
 tap "hashicorp/tap"
+tap "localstack/tap"
 
 # Shell & prompt
 brew "fish"
