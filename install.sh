@@ -77,6 +77,7 @@ backup_if_exists "$HOME/.gitignore_global"
 backup_if_exists "$HOME/.ssh/config"
 backup_if_exists "$HOME/.config/karabiner/karabiner.json"
 backup_if_exists "$HOME/.vimrc"
+backup_if_exists "$HOME/.iterm2_shell_integration.fish"
 
 # ── Step 4: Symlinks ─────────────────────────────────────────
 info "Creating symlinks..."
@@ -127,6 +128,9 @@ create_symlink "$DOTFILES/fish/functions/b64e.fish"          "$HOME/.config/fish
 create_symlink "$DOTFILES/fish/functions/b64d.fish"          "$HOME/.config/fish/functions/b64d.fish"
 create_symlink "$DOTFILES/fish/functions/retry.fish"         "$HOME/.config/fish/functions/retry.fish"
 create_symlink "$DOTFILES/fish/functions/watchurl.fish"      "$HOME/.config/fish/functions/watchurl.fish"
+
+# iTerm2 shell integration
+create_symlink "$DOTFILES/iterm2/iterm2_shell_integration.fish" "$HOME/.iterm2_shell_integration.fish"
 
 # Starship
 create_symlink "$DOTFILES/starship/starship.toml" "$HOME/.config/starship.toml"
