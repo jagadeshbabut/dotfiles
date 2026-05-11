@@ -43,6 +43,7 @@ brew "k9s"
 
 # Language toolchains
 brew "go"
+brew "python@3.14"
 brew "pyenv"
 brew "uv"
 brew "pnpm"
@@ -54,6 +55,7 @@ brew "act"                 # run GitHub Actions locally
 # Dev utilities
 brew "rtk"                 # RTK token-killer proxy for Claude Code
 brew "claude-cmd"
+brew "docker"
 
 # Internal / private taps
 brew "multica-ai/tap/multica"
@@ -63,6 +65,7 @@ brew "umputun/apps/ralphex"
 cask "font-jetbrains-mono-nerd-font"
 
 # Apps
+cask "claude-code"
 cask "maccy"               # Clipboard manager
 
 brew "gopls"               # Go language server

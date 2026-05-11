@@ -47,6 +47,10 @@ else
     success "Homebrew already installed"
 fi
 
+# ── Step 1b: Create ~/work folder ────────────────────────────
+mkdir -p "$HOME/work"
+success "~/work is ready"
+
 # ── Step 2: Brew bundle ───────────────────────────────────────
 info "Installing tools from Brewfile..."
 if brew bundle --file="$DOTFILES/Brewfile"; then
@@ -252,6 +256,35 @@ fi
 # ── Step 10: macOS defaults ──────────────────────────────────
 if confirm "Apply macOS defaults (Dock left, autohide, fast key repeat, Finder settings)?"; then
     bash "$DOTFILES/macos/defaults.sh"
+fi
+
+# ── Step 11: Brew maintenance launchd agent ───────────────────
+if confirm "Install Homebrew auto-maintenance agent (brew update/upgrade/cleanup every 6 hours)?"; then
+    _LABEL="com.jagadesh.hello-timestamp"
+    _PLIST_DEST="$HOME/Library/LaunchAgents/${_LABEL}.plist"
+    _DOMAIN="gui/$(id -u)"
+
+    mkdir -p "$HOME/bin" "$HOME/Library/LaunchAgents"
+
+    cp "$DOTFILES/launchd/brew_maintenance.sh" "$HOME/bin/brew_maintenance.sh"
+    chmod +x "$HOME/bin/brew_maintenance.sh"
+    success "Installed brew_maintenance.sh → ~/bin/"
+
+    sed "s|/Users/jagadeshthangavelu|$HOME|g" "$DOTFILES/launchd/${_LABEL}.plist" > "$_PLIST_DEST"
+    success "Installed plist → $_PLIST_DEST"
+
+    if launchctl list | grep -q "$_LABEL"; then
+        launchctl bootout "$_DOMAIN/$_LABEL" 2>/dev/null || launchctl unload "$_PLIST_DEST" 2>/dev/null || true
+    fi
+    launchctl bootstrap "$_DOMAIN" "$_PLIST_DEST" 2>/dev/null || launchctl load "$_PLIST_DEST" 2>/dev/null || true
+
+    if launchctl list | grep -q "$_LABEL"; then
+        success "Brew maintenance agent loaded — runs every 6 hours. Logs: ~/Library/Logs/brew_maintenance.log"
+    else
+        warn "Agent may not have loaded — check $_PLIST_DEST"
+    fi
+
+    unset _LABEL _PLIST_DEST _DOMAIN
 fi
 
 # ── Done ──────────────────────────────────────────────────────
