@@ -7,6 +7,17 @@
   },
   "effortLevel": "high",
   "showTurnDuration": true,
+  "extraKnownMarketplaces": {
+    "claude-code-warp": {
+      "source": {
+        "source": "github",
+        "repo": "warpdotdev/claude-code-warp"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "warp@claude-code-warp": true
+  },
   "hooks": {
     "PreToolUse": [
       {
