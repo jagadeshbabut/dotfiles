@@ -156,7 +156,9 @@ create_symlink "$DOTFILES/warp/settings.toml" "$HOME/.warp/settings.toml"
 
 # ── Step 5: Set fish as default shell ─────────────────────────
 FISH_PATH="$(which fish)"
-if confirm "Set fish as default shell ($FISH_PATH)?"; then
+if [[ "$AUTO_YES" == true ]]; then
+    warn "Skipping shell change in non-interactive mode — run manually: chsh -s $FISH_PATH"
+elif confirm "Set fish as default shell ($FISH_PATH)?"; then
     if ! grep -qF "$FISH_PATH" /etc/shells; then
         echo "$FISH_PATH" | sudo tee -a /etc/shells
     fi
@@ -254,11 +256,47 @@ if ls /Applications/iTerm.app &>/dev/null; then
 fi
 
 # ── Step 10: macOS defaults ──────────────────────────────────
-if confirm "Apply macOS defaults (Dock left, autohide, fast key repeat, Finder settings)?"; then
+if [[ "$AUTO_YES" == true ]]; then
+    warn "Skipping macOS defaults in non-interactive mode — run manually: bash $DOTFILES/macos/defaults.sh"
+elif confirm "Apply macOS defaults (Dock left, autohide, fast key repeat, Finder settings)?"; then
     bash "$DOTFILES/macos/defaults.sh"
 fi
 
-# ── Step 11: Brew maintenance launchd agent ───────────────────
+# ── Step 11: Work repos sync launchd agent ───────────────────
+if confirm "Install work repos sync agent (git pull --ff-only on 6 ne-bank repos every 6 hours)?"; then
+    _LABEL="com.jagadesh.sync-work-repos"
+    _PLIST_DEST="$HOME/Library/LaunchAgents/${_LABEL}.plist"
+    _DOMAIN="gui/$(id -u)"
+
+    mkdir -p "$HOME/Library/LaunchAgents"
+    chmod +x "$DOTFILES/launchd/sync_work_repos.sh"
+
+    CONF="$DOTFILES/launchd/sync_work_repos.conf"
+    if [[ ! -f "$CONF" ]]; then
+        cp "$DOTFILES/launchd/sync_work_repos.conf.template" "$CONF"
+        success "Created launchd/sync_work_repos.conf from template — edit to add/remove repos (gitignored)"
+    else
+        success "launchd/sync_work_repos.conf already exists — leaving untouched"
+    fi
+
+    sed "s|/Users/jagadeshthangavelu|$HOME|g" "$DOTFILES/launchd/${_LABEL}.plist" > "$_PLIST_DEST"
+    success "Installed plist → $_PLIST_DEST"
+
+    if launchctl list | grep -q "$_LABEL"; then
+        launchctl bootout "$_DOMAIN/$_LABEL" 2>/dev/null || launchctl unload "$_PLIST_DEST" 2>/dev/null || true
+    fi
+    launchctl bootstrap "$_DOMAIN" "$_PLIST_DEST" 2>/dev/null || launchctl load "$_PLIST_DEST" 2>/dev/null || true
+
+    if launchctl list | grep -q "$_LABEL"; then
+        success "Work repos sync agent loaded — runs every 6 hours. Logs: ~/Library/Logs/sync_work_repos.log"
+    else
+        warn "Agent may not have loaded — check $_PLIST_DEST"
+    fi
+
+    unset _LABEL _PLIST_DEST _DOMAIN
+fi
+
+# ── Step 12: Brew maintenance launchd agent ───────────────────
 if confirm "Install Homebrew auto-maintenance agent (brew update/upgrade/cleanup every 6 hours)?"; then
     _LABEL="com.jagadesh.hello-timestamp"
     _PLIST_DEST="$HOME/Library/LaunchAgents/${_LABEL}.plist"
