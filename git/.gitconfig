@@ -1,6 +1,6 @@
-[user]
-	email = jagadesh.thangavelu@slicebank.com
-	name = slice-jagadesht
+# Machine-local identity — set in ~/.gitconfig.local (not tracked in git)
+[include]
+	path = ~/.gitconfig.local
 
 [includeIf "gitdir:~/personal/"]
 	path = ~/.gitconfig-personal

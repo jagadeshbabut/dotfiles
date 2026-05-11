@@ -1,0 +1,8 @@
+# Copy to ~/.gitconfig.local and fill in your work identity.
+# This file is NOT tracked in git — keep it machine-local.
+#
+#   cp ~/personal/dotfiles/git/.gitconfig.local.template ~/.gitconfig.local
+
+[user]
+	name = your-work-username
+	email = your-work@email.com
