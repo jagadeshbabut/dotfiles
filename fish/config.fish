@@ -9,6 +9,7 @@ alias assume="source /opt/homebrew/bin/assume.fish"
 
 # Kubectl completions
 kubectl completion fish | source
+abbr -a k kubectl
 
 # Starship prompt
 starship init fish | source
