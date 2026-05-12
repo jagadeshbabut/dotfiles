@@ -118,12 +118,6 @@ defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
 sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false 2>/dev/null || true
 defaults write com.apple.airport.preferences RememberRecentNetworks -bool false 2>/dev/null || true
-defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
-defaults write com.apple.Safari AutoFillCreditCardData -bool false
-defaults write com.apple.Safari AutoFillPasswords -bool false
-defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 
 success "Privacy hardened"
 

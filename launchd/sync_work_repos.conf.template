@@ -2,9 +2,4 @@
 # Copy this to sync_work_repos.conf (gitignored) and edit freely.
 # Lines starting with # are ignored.
 
-ci-janus
-context-layer
 agent-skills
-ai-plugin
-cursor-circle
-oncall-bot

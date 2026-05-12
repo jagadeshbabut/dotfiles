@@ -1,21 +1,21 @@
 #!/bin/bash
 set -uo pipefail
 
-LOG_DIR="$HOME/Library/Logs"
-OUTPUT_FILE="$LOG_DIR/sync_work_repos.log"
+DOTFILES="$HOME/personal/dotfiles"
+OUTPUT_FILE="$DOTFILES/logs/sync_work_repos.log"
 WORK_DIR="$HOME/work"
-CONF_FILE="$(cd "$(dirname "$0")" && pwd)/sync_work_repos.conf"
+CONF_FILE="$DOTFILES/launchd/sync_work_repos.conf"
 
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$OUTPUT_FILE"
 }
 
-mkdir -p "$LOG_DIR"
+mkdir -p "$DOTFILES/logs"
 log "=== sync work repos started ==="
 
 if [[ ! -f "$CONF_FILE" ]]; then
-    log "ERROR config not found at $CONF_FILE — copy sync_work_repos.conf.template to sync_work_repos.conf"
-    exit 1
+    cp "$DOTFILES/launchd/sync_work_repos.conf.template" "$CONF_FILE"
+    log "WARN no conf found — created $CONF_FILE from template. Edit it to add repos."
 fi
 
 while IFS= read -r repo || [[ -n "$repo" ]]; do

@@ -266,68 +266,22 @@ elif confirm "Apply macOS defaults (Dock left, autohide, fast key repeat, Finder
     bash "$DOTFILES/macos/defaults.sh"
 fi
 
-# ── Step 11: Work repos sync launchd agent ───────────────────
-if confirm "Install work repos sync agent (git pull --ff-only on 6 ne-bank repos every 6 hours)?"; then
-    _LABEL="com.jagadesh.sync-work-repos"
-    _PLIST_DEST="$HOME/Library/LaunchAgents/${_LABEL}.plist"
-    _DOMAIN="gui/$(id -u)"
+# ── Step 11: LaunchAgents ─────────────────────────────────────
+mkdir -p "$HOME/Library/LaunchAgents"
+for _plist in "$DOTFILES"/launchd/com.jagadesh.*.plist; do
+    ln -sf "$_plist" "$HOME/Library/LaunchAgents/$(basename "$_plist")"
+    success "Linked $(basename "$_plist") → ~/Library/LaunchAgents/"
+done
+unset _plist
 
-    mkdir -p "$HOME/Library/LaunchAgents"
-    chmod +x "$DOTFILES/launchd/sync_work_repos.sh"
-
-    CONF="$DOTFILES/launchd/sync_work_repos.conf"
-    if [[ ! -f "$CONF" ]]; then
-        cp "$DOTFILES/launchd/sync_work_repos.conf.template" "$CONF"
-        success "Created launchd/sync_work_repos.conf from template — edit to add/remove repos (gitignored)"
-    else
-        success "launchd/sync_work_repos.conf already exists — leaving untouched"
-    fi
-
-    sed "s|/Users/jagadeshthangavelu|$HOME|g" "$DOTFILES/launchd/${_LABEL}.plist" > "$_PLIST_DEST"
-    success "Installed plist → $_PLIST_DEST"
-
-    if launchctl list | grep -q "$_LABEL"; then
-        launchctl bootout "$_DOMAIN/$_LABEL" 2>/dev/null || launchctl unload "$_PLIST_DEST" 2>/dev/null || true
-    fi
-    launchctl bootstrap "$_DOMAIN" "$_PLIST_DEST" 2>/dev/null || launchctl load "$_PLIST_DEST" 2>/dev/null || true
-
-    if launchctl list | grep -q "$_LABEL"; then
-        success "Work repos sync agent loaded — runs every 6 hours. Logs: ~/Library/Logs/sync_work_repos.log"
-    else
-        warn "Agent may not have loaded — check $_PLIST_DEST"
-    fi
-
-    unset _LABEL _PLIST_DEST _DOMAIN
+_conf="$DOTFILES/launchd/sync_work_repos.conf"
+if [[ ! -f "$_conf" ]]; then
+    cp "$DOTFILES/launchd/sync_work_repos.conf.template" "$_conf"
+    warn "Created sync_work_repos.conf from template — edit it to add repos before the agent runs"
+else
+    success "sync_work_repos.conf already exists — leaving untouched"
 fi
-
-# ── Step 12: Brew maintenance launchd agent ───────────────────
-if confirm "Install Homebrew auto-maintenance agent (brew update/upgrade/cleanup every 6 hours)?"; then
-    _LABEL="com.jagadesh.hello-timestamp"
-    _PLIST_DEST="$HOME/Library/LaunchAgents/${_LABEL}.plist"
-    _DOMAIN="gui/$(id -u)"
-
-    mkdir -p "$HOME/bin" "$HOME/Library/LaunchAgents"
-
-    cp "$DOTFILES/launchd/brew_maintenance.sh" "$HOME/bin/brew_maintenance.sh"
-    chmod +x "$HOME/bin/brew_maintenance.sh"
-    success "Installed brew_maintenance.sh → ~/bin/"
-
-    sed "s|/Users/jagadeshthangavelu|$HOME|g" "$DOTFILES/launchd/${_LABEL}.plist" > "$_PLIST_DEST"
-    success "Installed plist → $_PLIST_DEST"
-
-    if launchctl list | grep -q "$_LABEL"; then
-        launchctl bootout "$_DOMAIN/$_LABEL" 2>/dev/null || launchctl unload "$_PLIST_DEST" 2>/dev/null || true
-    fi
-    launchctl bootstrap "$_DOMAIN" "$_PLIST_DEST" 2>/dev/null || launchctl load "$_PLIST_DEST" 2>/dev/null || true
-
-    if launchctl list | grep -q "$_LABEL"; then
-        success "Brew maintenance agent loaded — runs every 6 hours. Logs: ~/Library/Logs/brew_maintenance.log"
-    else
-        warn "Agent may not have loaded — check $_PLIST_DEST"
-    fi
-
-    unset _LABEL _PLIST_DEST _DOMAIN
-fi
+unset _conf
 
 # ── Done ──────────────────────────────────────────────────────
 echo ""

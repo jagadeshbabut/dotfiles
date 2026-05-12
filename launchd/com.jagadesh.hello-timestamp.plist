@@ -7,7 +7,8 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/jagadeshthangavelu/bin/brew_maintenance.sh</string>
+        <string>/bin/bash</string>
+        <string>/Users/jagadeshthangavelu/personal/dotfiles/launchd/brew_maintenance.sh</string>
     </array>
 
     <key>StartInterval</key>
@@ -17,9 +18,9 @@
     <true/>
 
     <key>StandardOutPath</key>
-    <string>/Users/jagadeshthangavelu/Library/Logs/brew_maintenance_stdout.log</string>
+    <string>/Users/jagadeshthangavelu/personal/dotfiles/logs/brew_maintenance_stdout.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/Users/jagadeshthangavelu/Library/Logs/brew_maintenance_stderr.log</string>
+    <string>/Users/jagadeshthangavelu/personal/dotfiles/logs/brew_maintenance_stderr.log</string>
 </dict>
 </plist>
