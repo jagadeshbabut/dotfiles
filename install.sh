@@ -251,6 +251,14 @@ for skill_dir in "$DOTFILES/claude/skills"/*/; do
     create_symlink "$skill_dir" "$HOME/.claude/skills/$skill_name"
 done
 
+# Themes — symlink each theme file individually so ~/.claude/themes/ can
+# hold both dotfiles-managed and locally-added themes side by side
+mkdir -p "$HOME/.claude/themes"
+for theme_file in "$DOTFILES/claude/themes"/*.json; do
+    theme_name="$(basename "$theme_file")"
+    create_symlink "$theme_file" "$HOME/.claude/themes/$theme_name"
+done
+
 success "Claude Code config installed"
 
 # ── Step 9: iTerm2 ───────────────────────────────────────────
