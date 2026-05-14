@@ -41,10 +41,14 @@ use_latest_prompt_as_title = false
 show_panel_in_restored_windows = false
 
 [appearance.icon]
-app_icon = "default"
+app_icon = "mono"
 
 [appearance.cursor]
 cursor_display_type = "bar"
+
+[appearance.window]
+override_opacity = 70
+override_blur = 1
 
 [notifications]
 toast_duration_secs = 8
