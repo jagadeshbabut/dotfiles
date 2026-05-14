@@ -157,6 +157,7 @@ create_symlink "$DOTFILES/vim/.vimrc" "$HOME/.vimrc"
 # Warp
 mkdir -p "$HOME/.warp"
 create_symlink "$DOTFILES/warp/settings.toml" "$HOME/.warp/settings.toml"
+create_symlink "$DOTFILES/warp/themes" "$HOME/.warp/themes"
 
 # ── Step 5: Set fish as default shell ─────────────────────────
 FISH_PATH="$(which fish)"

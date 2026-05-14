@@ -29,11 +29,13 @@ while IFS= read -r repo || [[ -n "$repo" ]]; do
     fi
 
     log "--- $repo ---"
-    if git -C "$repo_path" fetch origin main >> "$OUTPUT_FILE" 2>&1; then
-        if git -C "$repo_path" merge --ff-only origin/main >> "$OUTPUT_FILE" 2>&1; then
+    default_branch=$(git -C "$repo_path" remote show origin 2>/dev/null | awk '/HEAD branch/ {print $NF}')
+    default_branch="${default_branch:-main}"
+    if git -C "$repo_path" fetch origin "$default_branch" >> "$OUTPUT_FILE" 2>&1; then
+        if git -C "$repo_path" merge --ff-only "origin/$default_branch" >> "$OUTPUT_FILE" 2>&1; then
             log "OK $repo pulled to $(git -C "$repo_path" rev-parse --short HEAD)"
         else
-            log "WARN $repo has local commits ahead of origin/main — skipping merge"
+            log "WARN $repo has local commits ahead of origin/$default_branch — skipping merge"
         fi
     else
         log "ERROR $repo fetch failed"
