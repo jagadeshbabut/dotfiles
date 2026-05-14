@@ -70,5 +70,6 @@ cask "font-jetbrains-mono-nerd-font"
 # Apps
 cask "claude-code"
 cask "maccy"               # Clipboard manager
+cask "wispr-flow"          # Voice-to-text dictation
 
 brew "gopls"               # Go language server
