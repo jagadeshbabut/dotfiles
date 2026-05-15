@@ -1,5 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
   "theme": "dark-ansi",
   "attribution": {
     "commit": "",
@@ -16,7 +19,30 @@
     }
   },
   "enabledPlugins": {
-    "warp@claude-code-warp": true
+    "warp@claude-code-warp": true,
+    "superpowers@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "claude-code-setup@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "atlassian@claude-plugins-official": true,
+    "slack@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "chrome-devtools-mcp@claude-plugins-official": true,
+    "agent-sdk-dev@claude-plugins-official": true,
+    "hookify@claude-plugins-official": true,
+    "plugin-dev@claude-plugins-official": true,
+    "playground@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "deploy-on-aws@claude-plugins-official": true,
+    "terraform@claude-plugins-official": true
   },
   "hooks": {
     "PreToolUse": [
@@ -85,12 +111,16 @@
       "Bash(git branch *)",
       "Bash(git stash *)",
       "Bash(git fetch *)",
+      "Bash(git remote *)",
+      "Bash(git checkout *)",
+      "Bash(git ls-remote *)",
       "Bash(git init)",
       "Bash(git init *)",
 
       "Bash(gh auth *)",
       "Bash(gh auth:*)",
       "Bash(gh repo *)",
+      "Bash(gh pr *)",
       "Bash(/opt/homebrew/bin/gh auth:*)",
       "Bash(/opt/homebrew/bin/gh api:*)",
 
@@ -144,6 +174,8 @@
       "Bash(brew info *)",
       "Bash(brew search *)",
       "Bash(brew install:*)",
+      "Bash(brew --version)",
+      "Bash(pyenv *)",
 
       "Bash(curl *)",
       "Bash(curl:*)",
