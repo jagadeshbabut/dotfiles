@@ -1,0 +1,54 @@
+{
+  "expectations": [
+    {
+      "text": "Component doc has Overview, Flow, Dependencies, Configuration, and Gotchas sections",
+      "passed": false,
+      "evidence": "COMPONENT.md has Architecture Overview (with diagram), Token Model, Configuration, Endpoints, Security Properties, Error Handling, Dependencies — but no 'Gotchas' section. Section structure diverges from the template."
+    },
+    {
+      "text": "Flow section describes the full login → access token → refresh → logout sequence",
+      "passed": true,
+      "evidence": "Architecture Overview ASCII diagram shows all four flows: POST /auth/login, token issuance, POST /auth/refresh with rotation, POST /auth/logout with Redis deletion."
+    },
+    {
+      "text": "Configuration table includes JWT_SECRET, ACCESS_TOKEN_EXPIRY, REFRESH_TOKEN_EXPIRY, and REDIS_URL",
+      "passed": false,
+      "evidence": "Configuration table uses JWT_ACCESS_TTL (not ACCESS_TOKEN_EXPIRY) and JWT_REFRESH_TTL (not REFRESH_TOKEN_EXPIRY). JWT_SECRET and REDIS_URL are present. The env var names differ from what the skill's template would produce."
+    },
+    {
+      "text": "Gotchas section mentions refresh token rotation race condition",
+      "passed": false,
+      "evidence": "No Gotchas section. Refresh token rotation is mentioned in Token Model (line 59: 'If an attacker reuses a rotated token, the legitimate user's session is also invalidated') but the race condition (two tabs racing to refresh) is not called out."
+    },
+    {
+      "text": "CLAUDE.md has YAML frontmatter with type, module, last-updated, and stability fields",
+      "passed": false,
+      "evidence": "CLAUDE.md starts with '# CLAUDE.md — Auth Module' — no YAML frontmatter block. None of the machine-parseable fields (type, module, last-updated, stability) are present."
+    },
+    {
+      "text": "CLAUDE.md 'What NOT to Change' section explicitly warns against lowering bcrypt cost factor",
+      "passed": true,
+      "evidence": "'Things You Must Not Do' section line 37: 'Do not lower the bcrypt cost factor.' bcrypt warning appears multiple times across the document."
+    },
+    {
+      "text": "CLAUDE.md has a 'Common Pitfalls for AI Agents' section",
+      "passed": false,
+      "evidence": "No 'Common Pitfalls for AI Agents' section. The CLAUDE.md has 'Things You Must Not Do', 'Things That Are Safe To Do', 'Key Invariants', 'Common Tasks' — but not an agent-specific pitfalls section."
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 5,
+    "total": 7,
+    "pass_rate": 0.286
+  },
+  "execution_metrics": {
+    "tool_calls": {"Read": 1, "Write": 3, "Bash": 1},
+    "total_tool_calls": 5,
+    "total_steps": 3,
+    "files_created": ["COMPONENT.md", "CLAUDE.md", "metrics.json"],
+    "errors_encountered": 0,
+    "output_chars": 7200,
+    "transcript_chars": 18673
+  }
+}

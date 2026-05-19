@@ -1,0 +1,54 @@
+{
+  "expectations": [
+    {
+      "text": "Component doc has Overview, Flow, Dependencies, Configuration, and Gotchas sections",
+      "passed": true,
+      "evidence": "COMPONENT.md has all five sections: Overview (with primary invariant), Flow (numbered steps), Dependencies (table with why), Configuration (table), Gotchas (5 items)."
+    },
+    {
+      "text": "Flow section describes the full login → access token → refresh → logout sequence",
+      "passed": true,
+      "evidence": "COMPONENT.md Flow section steps 1-4 cover: POST /auth/login with token issuance, API requests with Bearer header, POST /auth/refresh with rotation, DELETE /auth/session with Redis deletion."
+    },
+    {
+      "text": "Configuration table includes JWT_SECRET, ACCESS_TOKEN_EXPIRY, REFRESH_TOKEN_EXPIRY, and REDIS_URL",
+      "passed": true,
+      "evidence": "Configuration table rows: JWT_PRIVATE_KEY, JWT_PUBLIC_KEY, JWT_SECRET (deprecated), ACCESS_TOKEN_EXPIRY, REFRESH_TOKEN_EXPIRY, REDIS_URL, BCRYPT_COST. All four required vars present."
+    },
+    {
+      "text": "Gotchas section mentions refresh token rotation race condition",
+      "passed": true,
+      "evidence": "Gotchas item 1: 'Refresh token single-use: Rotation means each refresh token is valid for exactly one /auth/refresh call. If two requests race to refresh (e.g., two tabs open simultaneously), the second will get a 401.'"
+    },
+    {
+      "text": "CLAUDE.md has YAML frontmatter with type, module, last-updated, and stability fields",
+      "passed": true,
+      "evidence": "CLAUDE.md lines 1-7 contain YAML frontmatter with: type: ai-context, module: auth, owner: platform-team, last-updated: 2026-05-15, stability: stable."
+    },
+    {
+      "text": "CLAUDE.md 'What NOT to Change' section explicitly warns against lowering bcrypt cost factor",
+      "passed": true,
+      "evidence": "CLAUDE.md 'What NOT to Change Without Discussion' section: 'If you see bcrypt.hash(password, rounds) where rounds < 12, that is a bug.' — code-level signal for AI agents."
+    },
+    {
+      "text": "CLAUDE.md has a 'Common Pitfalls for AI Agents' section",
+      "passed": true,
+      "evidence": "CLAUDE.md lines 78-91 contain '## Common Pitfalls for AI Agents' with 6 concrete pitfalls including JWT validity ≠ authorisation, bcrypt cost reduction, single-use refresh tokens, JWT_SECRET legacy, Redis key namespace, and 15-min TTL."
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "total": 7,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {"Read": 2, "Write": 3, "Bash": 3},
+    "total_tool_calls": 8,
+    "total_steps": 4,
+    "files_created": ["COMPONENT.md", "CLAUDE.md", "metrics.json"],
+    "errors_encountered": 0,
+    "output_chars": 11190,
+    "transcript_chars": 22922
+  }
+}

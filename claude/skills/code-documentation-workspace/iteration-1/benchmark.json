@@ -1,0 +1,190 @@
+{
+  "metadata": {
+    "skill_name": "code-documentation",
+    "skill_path": "/Users/jagadeshthangavelu/.claude/skills/code-documentation",
+    "executor_model": "claude-sonnet-4-6",
+    "analyzer_model": "claude-sonnet-4-6",
+    "timestamp": "2026-05-15T00:00:00Z",
+    "evals_run": ["inline-comments", "adr-generation", "component-and-claude-md"],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "eval_name": "inline-comments",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 98.1,
+        "tokens": 24969,
+        "tool_calls": 11,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Comments explain WHY the idempotency key exists and what the TTL means", "passed": true, "evidence": "Lines 8-11 explain 24-hour duplicate-window reasoning and multi-instance deduplication."},
+        {"text": "Comment explains the EU currency coercion and where this rule came from", "passed": true, "evidence": "Lines 44-47 explain PSD2 compliance and cross-border currency mismatch prevention."},
+        {"text": "Comment explains why card_declined breaks the retry loop immediately", "passed": true, "evidence": "Lines 111-113 explain deterministic failures and multiple failed charge notifications."},
+        {"text": "Comment explains the exponential backoff retry delays (1s, 3s, 9s)", "passed": true, "evidence": "Lines 15-19 show 1s→3s→9s with transient failure rationale."},
+        {"text": "The output explicitly lists lines that should NOT have comments added", "passed": true, "evidence": "commentary.md has 12-entry table of deliberately uncommented lines."},
+        {"text": "No comment just restates what the code already says", "passed": true, "evidence": "All 13 comment blocks explain WHY. No obvious restatements found."}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "inline-comments",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.833,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 105.7,
+        "tokens": 23511,
+        "tool_calls": 7,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Comments explain WHY the idempotency key exists and what the TTL means", "passed": true, "evidence": "Lines 11-14 explain 24-hour window and deduplication purpose."},
+        {"text": "Comment explains the EU currency coercion and where this rule came from", "passed": true, "evidence": "Lines 49-53 mention regulatory issues and silent mutation."},
+        {"text": "Comment explains why card_declined breaks the retry loop immediately", "passed": true, "evidence": "Lines 116-118 explain terminal errors and Stripe fraud signal risk."},
+        {"text": "Comment explains the exponential backoff retry delays (1s, 3s, 9s)", "passed": true, "evidence": "Lines 19-22 explain exponential backoff with human-readable values."},
+        {"text": "The output explicitly lists lines that should NOT have comments added", "passed": true, "evidence": "commentary.md has 11-entry table of deliberately uncommented lines."},
+        {"text": "No comment just restates what the code already says", "passed": false, "evidence": "Line 156: 'Simple promise-based delay helper used by the retry loop.' restates what the function name 'sleep' already says. Commentary.md itself listed sleep as 'deliberately left uncommented' — an internal inconsistency."}
+      ],
+      "notes": ["Commentary.md says sleep was left uncommented but the file has a comment on it — internal inconsistency in the output."]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "adr-generation",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 60.7,
+        "tokens": 22682,
+        "tool_calls": 6,
+        "errors": 1
+      },
+      "expectations": [
+        {"text": "ADR has all required sections: Status, Context, Decision, Rationale, Consequences", "passed": true, "evidence": "All five section headers present."},
+        {"text": "ADR includes an 'AI Context' section", "passed": true, "evidence": "Lines 88-108 contain full AI Context with four invariants."},
+        {"text": "Context mentions the BullMQ/Redis failover problem specifically", "passed": true, "evidence": "Lines 10-15 mention data loss incidents during Redis failover."},
+        {"text": "Rationale explains why Temporal was chosen over alternatives", "passed": true, "evidence": "Rationale section explicitly rejects BullMQ and SQS+Step Functions with concrete reasons."},
+        {"text": "Consequences explicitly mentions the separate worker process and ops overhead", "passed": true, "evidence": "Lines 70-74 cover ops surface and separate worker process deployment."},
+        {"text": "AI Context section instructs an agent not to suggest reverting to BullMQ without reading the failover incident", "passed": true, "evidence": "Line 95 explicitly states 'Do not suggest reverting to BullMQ or any Redis-backed queue'."}
+      ],
+      "notes": ["One error: mkdir Bash call denied, worked around via Write tool auto-creating directories."]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "adr-generation",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.5,
+        "passed": 3,
+        "failed": 3,
+        "total": 6,
+        "time_seconds": 60.5,
+        "tokens": 17456,
+        "tool_calls": 5,
+        "errors": 1
+      },
+      "expectations": [
+        {"text": "ADR has all required sections: Status, Context, Decision, Rationale, Consequences", "passed": false, "evidence": "No standalone Rationale section. Has Alternatives Considered and Migration Plan sections not in the template instead."},
+        {"text": "ADR includes an 'AI Context' section", "passed": false, "evidence": "No AI Context section. ADR ends with References section."},
+        {"text": "Context mentions the BullMQ/Redis failover problem specifically", "passed": true, "evidence": "Lines 13-16 describe jobs lost during failover window and references INC-0047."},
+        {"text": "Rationale explains why Temporal was chosen over alternatives", "passed": true, "evidence": "Alternatives Considered section covers rejection rationale for all three alternatives."},
+        {"text": "Consequences explicitly mentions the separate worker process and ops overhead", "passed": true, "evidence": "Line 57 explicitly mentions separate process, deployment artifact, CI/CD updates needed."},
+        {"text": "AI Context section instructs an agent not to suggest reverting to BullMQ without reading the failover incident", "passed": false, "evidence": "No AI Context section. Only reference to incident is a link in References section."}
+      ],
+      "notes": ["Baseline produced additional sections (Migration Plan, References) not in the skill template — structurally richer but misses the AI-readable layer entirely."]
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "component-and-claude-md",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 7,
+        "failed": 0,
+        "total": 7,
+        "time_seconds": 81.3,
+        "tokens": 22922,
+        "tool_calls": 8,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Component doc has Overview, Flow, Dependencies, Configuration, and Gotchas sections", "passed": true, "evidence": "COMPONENT.md has all five sections with exact template headers."},
+        {"text": "Flow section describes the full login → access token → refresh → logout sequence", "passed": true, "evidence": "4-step flow covers POST /auth/login, API requests, POST /auth/refresh with rotation, DELETE /auth/session."},
+        {"text": "Configuration table includes JWT_SECRET, ACCESS_TOKEN_EXPIRY, REFRESH_TOKEN_EXPIRY, and REDIS_URL", "passed": true, "evidence": "All four required vars present in configuration table, plus JWT_PRIVATE_KEY, JWT_PUBLIC_KEY, BCRYPT_COST."},
+        {"text": "Gotchas section mentions refresh token rotation race condition", "passed": true, "evidence": "Gotcha 1: 'If two requests race to refresh (e.g., two tabs open simultaneously), the second will get a 401.'"},
+        {"text": "CLAUDE.md has YAML frontmatter with type, module, last-updated, and stability fields", "passed": true, "evidence": "Lines 1-7: type: ai-context, module: auth, owner: platform-team, last-updated: 2026-05-15, stability: stable."},
+        {"text": "CLAUDE.md 'What NOT to Change' section explicitly warns against lowering bcrypt cost factor", "passed": true, "evidence": "'If you see bcrypt.hash(password, rounds) where rounds < 12, that is a bug.' — code-level signal."},
+        {"text": "CLAUDE.md has a 'Common Pitfalls for AI Agents' section", "passed": true, "evidence": "Lines 78-91: 6 concrete agent-specific pitfalls including JWT validity != authorisation, bcrypt cost reduction, single-use tokens."}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "component-and-claude-md",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.286,
+        "passed": 2,
+        "failed": 5,
+        "total": 7,
+        "time_seconds": 71.1,
+        "tokens": 18673,
+        "tool_calls": 5,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "Component doc has Overview, Flow, Dependencies, Configuration, and Gotchas sections", "passed": false, "evidence": "No Gotchas section. Has Architecture Overview, Token Model, Configuration, Endpoints, Security Properties, Error Handling, Dependencies — different structure."},
+        {"text": "Flow section describes the full login → access token → refresh → logout sequence", "passed": true, "evidence": "Architecture Overview ASCII diagram shows all four flows."},
+        {"text": "Configuration table includes JWT_SECRET, ACCESS_TOKEN_EXPIRY, REFRESH_TOKEN_EXPIRY, and REDIS_URL", "passed": false, "evidence": "Uses JWT_ACCESS_TTL and JWT_REFRESH_TTL instead of ACCESS_TOKEN_EXPIRY and REFRESH_TOKEN_EXPIRY."},
+        {"text": "Gotchas section mentions refresh token rotation race condition", "passed": false, "evidence": "No Gotchas section. Race condition not mentioned anywhere."},
+        {"text": "CLAUDE.md has YAML frontmatter with type, module, last-updated, and stability fields", "passed": false, "evidence": "CLAUDE.md starts with '# CLAUDE.md — Auth Module' — no YAML frontmatter block at all."},
+        {"text": "CLAUDE.md 'What NOT to Change' section explicitly warns against lowering bcrypt cost factor", "passed": true, "evidence": "'Things You Must Not Do' includes 'Do not lower the bcrypt cost factor.' — appears multiple times."},
+        {"text": "CLAUDE.md has a 'Common Pitfalls for AI Agents' section", "passed": false, "evidence": "No 'Common Pitfalls for AI Agents' section. Has 'Common Tasks' (what TO do) but not an agent-specific pitfalls section."}
+      ],
+      "notes": ["Without-skill CLAUDE.md is thoughtful and has bcrypt warning in multiple places, but lacks YAML frontmatter (not machine-parseable), missing AI-agent-specific pitfalls section, and has 'Common Tasks' instead of 'Common Pitfalls for AI Agents'."]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {"mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0},
+      "time_seconds": {"mean": 80.0, "stddev": 18.7, "min": 60.7, "max": 98.1},
+      "tokens": {"mean": 23524, "stddev": 1167, "min": 22682, "max": 24969}
+    },
+    "without_skill": {
+      "pass_rate": {"mean": 0.54, "stddev": 0.23, "min": 0.286, "max": 0.833},
+      "time_seconds": {"mean": 79.1, "stddev": 22.5, "min": 60.5, "max": 105.7},
+      "tokens": {"mean": 19880, "stddev": 3102, "min": 17456, "max": 23511}
+    },
+    "delta": {
+      "pass_rate": "+0.46",
+      "time_seconds": "+0.9",
+      "tokens": "+3644"
+    }
+  },
+  "notes": [
+    "The AI Context section in ADRs is the sharpest differentiator — skill produces it 100% of the time, baseline never produces it (0/1 runs).",
+    "YAML frontmatter on CLAUDE.md is another clean signal — skill always produces it, baseline never does. This is the machine-parseability layer.",
+    "Eval 1 (inline comments) shows the smallest gap (1.0 vs 0.83) — baseline Claude is naturally good at WHY comments. The skill adds value mainly in the explicit 'do not comment these lines' discipline.",
+    "Eval 3 (component+CLAUDE.md) shows the largest gap (1.0 vs 0.286) — the structured template and AI-readable layer are where the skill adds the most value.",
+    "Both configurations take roughly the same wall-clock time. The skill uses ~3,600 more tokens on average (reading the skill file), a modest overhead given the quality improvement.",
+    "Without-skill ADR added sections not in the template (Migration Plan, References) — shows baseline Claude produces structurally richer but schema-divergent output."
+  ]
+}

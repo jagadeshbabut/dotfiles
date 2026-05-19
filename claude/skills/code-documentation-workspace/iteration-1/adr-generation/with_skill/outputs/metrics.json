@@ -1,0 +1,9 @@
+{
+  "tool_calls": {"Read": 2, "Write": 2, "Bash": 1},
+  "total_tool_calls": 5,
+  "total_steps": 5,
+  "files_created": ["ADR-002-temporal-job-queue.md"],
+  "errors_encountered": 1,
+  "output_chars": 5814,
+  "transcript_chars": 12500
+}

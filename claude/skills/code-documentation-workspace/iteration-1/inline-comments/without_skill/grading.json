@@ -1,0 +1,49 @@
+{
+  "expectations": [
+    {
+      "text": "Comments explain WHY the idempotency key exists and what the TTL means",
+      "passed": true,
+      "evidence": "Lines 11-14 explain 86400 = 24 hours and the duplicate charge deduplication window. Lines 31-33 explain idempotency key scoping."
+    },
+    {
+      "text": "Comment explains the EU currency coercion and where this rule came from",
+      "passed": true,
+      "evidence": "Lines 49-53 explain EU compliance with 'regulatory issues with charging EU customers in USD' and notes the silent mutation."
+    },
+    {
+      "text": "Comment explains why card_declined breaks the retry loop immediately",
+      "passed": true,
+      "evidence": "Lines 116-118: 'card_declined and insufficient_funds are terminal errors — retrying the same card won't help and could trigger Stripe fraud signals.'"
+    },
+    {
+      "text": "Comment explains the exponential backoff retry delays (1s, 3s, 9s)",
+      "passed": true,
+      "evidence": "Lines 19-22 explain 'Exponential-ish back-off delays' with '1 s, 3 s, 9 s' and the index mapping."
+    },
+    {
+      "text": "The output explicitly lists lines that should NOT have comments added",
+      "passed": true,
+      "evidence": "commentary.md has 'Lines Deliberately Left Uncommented' table with 11 entries."
+    },
+    {
+      "text": "No comment just restates what the code already says (e.g., no 'increment counter' style)",
+      "passed": false,
+      "evidence": "Line 156: '// Simple promise-based delay helper used by the retry loop.' — this restates what the function name 'sleep' already communicates. The commentary.md itself listed the sleep function as 'deliberately left uncommented', making this an inconsistency. Additionally line 6 partially restates: 'Initialize the Stripe client using a secret key from the environment.'"
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 1,
+    "total": 6,
+    "pass_rate": 0.83
+  },
+  "execution_metrics": {
+    "tool_calls": {"Read": 2, "Write": 3, "Bash": 2},
+    "total_tool_calls": 7,
+    "total_steps": 3,
+    "files_created": ["commented-payment-service.ts", "commentary.md", "metrics.json"],
+    "errors_encountered": 0,
+    "output_chars": 6200,
+    "transcript_chars": 23511
+  }
+}

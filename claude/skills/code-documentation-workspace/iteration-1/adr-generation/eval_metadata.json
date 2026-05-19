@@ -1,0 +1,13 @@
+{
+  "eval_id": 2,
+  "eval_name": "adr-generation",
+  "prompt": "We're switching our background job queue from BullMQ (Redis-backed) to Temporal (durable workflow engine). The main reasons: BullMQ jobs were getting lost during Redis failovers, and we need long-running workflows that can pause and resume. Downside is Temporal requires running a separate worker process and has more ops overhead. Write an ADR for this decision.",
+  "assertions": [
+    "ADR has all required sections: Status, Context, Decision, Rationale, Consequences",
+    "ADR includes an 'AI Context' section",
+    "Context mentions the BullMQ/Redis failover problem specifically",
+    "Rationale explains why Temporal was chosen over alternatives",
+    "Consequences explicitly mentions the separate worker process and ops overhead",
+    "AI Context section instructs an agent not to suggest reverting to BullMQ without reading the failover incident"
+  ]
+}

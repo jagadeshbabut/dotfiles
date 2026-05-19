@@ -1,0 +1,49 @@
+{
+  "expectations": [
+    {
+      "text": "Comments explain WHY the idempotency key exists and what the TTL means",
+      "passed": true,
+      "evidence": "Lines 8-11 explain IDEMPOTENCY_TTL as 24-hour duplicate-window. Lines 27-29 explain key scoped to customer+order for multi-instance deduplication."
+    },
+    {
+      "text": "Comment explains the EU currency coercion and where this rule came from",
+      "passed": true,
+      "evidence": "Lines 44-47 explain EU compliance, PSD2 requirements, and that silent mutation prevents cross-border currency mismatch errors from Stripe."
+    },
+    {
+      "text": "Comment explains why card_declined breaks the retry loop immediately",
+      "passed": true,
+      "evidence": "Lines 111-113: 'These are deterministic failures — retrying will not help and could confuse the customer (e.g. multiple failed charge notifications).'"
+    },
+    {
+      "text": "Comment explains the exponential backoff retry delays (1s, 3s, 9s)",
+      "passed": true,
+      "evidence": "Lines 15-19 explicitly state '1s → 3s → 9s', explain first element usage, and give rationale: 'transient Stripe failures usually resolve within a few seconds.'"
+    },
+    {
+      "text": "The output explicitly lists lines that should NOT have comments added",
+      "passed": true,
+      "evidence": "commentary.md has 'Lines Deliberately Left Uncommented' table with 12 entries covering imports, MAX_RETRY_ATTEMPTS, sleep function body, etc."
+    },
+    {
+      "text": "No comment just restates what the code already says (e.g., no 'increment counter' style)",
+      "passed": true,
+      "evidence": "All 13 comment blocks explain non-obvious WHY (PSD2, Stripe API contracts, race conditions). No comment was found that simply restates the code action."
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "total": 6,
+    "pass_rate": 1.0
+  },
+  "execution_metrics": {
+    "tool_calls": {"Read": 4, "Write": 3, "Bash": 4},
+    "total_tool_calls": 11,
+    "total_steps": 4,
+    "files_created": ["commented-payment-service.ts", "commentary.md", "metrics.json"],
+    "errors_encountered": 0,
+    "output_chars": 5800,
+    "transcript_chars": 24969
+  }
+}

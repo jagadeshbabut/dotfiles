@@ -1,0 +1,105 @@
+{
+  "skill_name": "feature-backlog-researcher",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Research Sentry (sentry.io) and add their core features to a new backlog file at /tmp/eval1-backlog.md",
+      "expected_output": "A new backlog file at /tmp/eval1-backlog.md containing multiple BL-XXX numbered items starting at BL-001, organized into sections with emoji headers, each with a one-paragraph description adapted to developer portal context. Sources cited at the bottom. No enterprise compliance features included. A summary message provided.",
+      "files": [],
+      "expectations": [
+        "The backlog file is created at /tmp/eval1-backlog.md",
+        "BL numbering starts at BL-001 and increments without gaps",
+        "At least 3 sections are present, each with an emoji in the header",
+        "Each BL item has a one-paragraph description (not a stub or placeholder)",
+        "At least one section covers error tracking or crash reporting",
+        "At least one section covers performance monitoring or tracing",
+        "No items mention SSO, SAML, RBAC, SOC 2, HIPAA, GDPR, audit logs, or multi-tenancy",
+        "A sources line citing sentry.io appears at the bottom of the file",
+        "A summary message is provided to the user after appending, stating how many items were added"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have an existing backlog at evals/files/sample-backlog.md. Research Linear (linear.app) and append their features to it.",
+      "expected_output": "The sample-backlog.md file updated with new sections appended after the existing content. BL numbering continues from BL-006 (since the file ends at BL-005). Section numbering starts at 3. No duplication of the existing alerting or dashboard items. Sources line updated to include linear.app.",
+      "files": ["evals/files/sample-backlog.md"],
+      "expectations": [
+        "New BL items start at BL-006 (continuing from BL-005 in the existing file)",
+        "New section numbering starts at 3 (continuing from section 2 in the existing file)",
+        "No BL items duplicate the concepts already covered (alerting, alert routing, escalation, dashboards, deploy tracking)",
+        "At least one new section covers issue tracking or project management",
+        "At least one new section covers engineering workflow or cycle time features",
+        "Each new BL item has a one-paragraph description in developer portal context",
+        "The sources line at the bottom is updated to include linear.app",
+        "A summary message is provided stating how many new items were added and which sections are new"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Research Okta (okta.com) and add relevant features to a new backlog at /tmp/eval3-backlog.md",
+      "expected_output": "A backlog file with developer-facing Okta features (developer APIs, authentication SDKs, OAuth/OIDC flows for apps, identity verification for user flows) but with enterprise overhead features (SSO enforcement, SAML for workforce, RBAC administration, compliance reporting, audit logs) filtered out. The summary message should note which categories were filtered.",
+      "files": [],
+      "expectations": [
+        "The backlog file is created at /tmp/eval3-backlog.md",
+        "BL numbering starts at BL-001",
+        "No items describe SSO enforcement, SAML workforce federation, RBAC admin consoles, SOC 2 compliance controls, or audit log dashboards",
+        "At least one item covers developer-relevant authentication concepts (OAuth flows, token management, or identity APIs that an app would integrate)",
+        "The summary message explicitly notes that enterprise/compliance features were filtered out",
+        "Each included BL item is framed in terms of what a developer portal would expose to engineering teams, not Okta's marketing language"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Let's do the same exercise for https://incident.io/ — research what they offer and add it to our developer portal backlog.",
+      "expected_output": "New BL-XXX numbered backlog items appended to the existing file, grouped into logical sections, enterprise features filtered out, sources cited.",
+      "files": ["tierzero_devportal_backlog.md"],
+      "expectations": [
+        "New BL items are appended to tierzero_devportal_backlog.md without modifying existing items",
+        "BL numbering continues correctly from the last BL number in the existing file with no gaps or repeats",
+        "New section numbering continues from the last section number in the existing file",
+        "At least one section covers incident response or on-call workflows",
+        "At least one section covers postmortems, retrospectives, or incident follow-up",
+        "No items mention SSO, SAML, RBAC, SOC 2, audit logs, or multi-tenancy",
+        "Each BL item has a one-paragraph description framed in developer portal context",
+        "A sources line citing incident.io appears at the bottom",
+        "A summary message is provided stating how many items were added and which sections are new"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Go over https://www.cortex.io/ and pull out any features worth adding to our dev portal backlog. Keep it lean — no enterprise stuff.",
+      "expected_output": "Core developer-facing features from Cortex added to the backlog with correct BL numbering, enterprise items excluded, grouped by category.",
+      "files": ["tierzero_devportal_backlog.md"],
+      "expectations": [
+        "New BL items are appended to tierzero_devportal_backlog.md without modifying existing items",
+        "BL numbering continues correctly from the last BL number in the existing file with no gaps or repeats",
+        "New section numbering continues from the last section number in the existing file",
+        "At least one section covers service catalog or service ownership features",
+        "At least one section covers scorecards, maturity tracking, or engineering standards",
+        "No items mention SSO, SAML, RBAC, SOC 2, audit logs, or multi-tenancy",
+        "No items duplicate concepts already present in the existing backlog",
+        "Each BL item has a one-paragraph description framed in developer portal context",
+        "A sources line citing cortex.io appears at the bottom",
+        "A summary message is provided stating how many items were added"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Do a similar exercise for https://www.getport.io/ and https://backstage.io/ — both are developer portals, pick the best features from each.",
+      "expected_output": "Features from both Port and Backstage researched, filtered, de-duplicated against each other and the existing backlog, then appended in standard format.",
+      "files": ["tierzero_devportal_backlog.md"],
+      "expectations": [
+        "Both getport.io and backstage.io are researched before writing any backlog items",
+        "New BL items are appended to tierzero_devportal_backlog.md without modifying existing items",
+        "BL numbering continues correctly from the last BL number in the existing file with no gaps or repeats",
+        "New section numbering continues from the last section number in the existing file",
+        "Features that appear in both Port and Backstage are not added twice — they are merged into a single backlog item",
+        "No items duplicate concepts already present in the existing backlog",
+        "No items mention SSO, SAML, RBAC, SOC 2, audit logs, or multi-tenancy",
+        "Each BL item has a one-paragraph description framed in developer portal context",
+        "Sources cite both getport.io and backstage.io at the bottom",
+        "A summary message is provided stating how many items were added, which sections are new, and which products were researched"
+      ]
+    }
+  ]
+}

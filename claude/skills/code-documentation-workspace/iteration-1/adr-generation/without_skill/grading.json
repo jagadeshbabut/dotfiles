@@ -1,0 +1,49 @@
+{
+  "expectations": [
+    {
+      "text": "ADR has all required sections: Status, Context, Decision, Rationale, Consequences",
+      "passed": false,
+      "evidence": "No standalone 'Rationale' section. The ADR has Status, Context, Decision, Consequences, Alternatives Considered, Migration Plan, References — the rationale is embedded in Decision and Alternatives sections rather than as an explicit section header."
+    },
+    {
+      "text": "ADR includes an 'AI Context' section",
+      "passed": false,
+      "evidence": "No AI Context section present. The ADR ends with a References section including an internal post-mortem link but no structured guidance for AI agents."
+    },
+    {
+      "text": "Context mentions the BullMQ/Redis failover problem specifically",
+      "passed": true,
+      "evidence": "Lines 13-16 describe 'jobs dequeued by workers but not yet committed to a persistent store are lost' during failover, and references INC-0047 post-mortem."
+    },
+    {
+      "text": "Rationale explains why Temporal was chosen over alternatives",
+      "passed": true,
+      "evidence": "Alternatives Considered section (lines 66-83) explains rejection of each alternative with specific reasons."
+    },
+    {
+      "text": "Consequences explicitly mentions the separate worker process and ops overhead",
+      "passed": true,
+      "evidence": "Line 57: 'Temporal workers are typically run as separate processes. This adds a deployment artifact and requires updates to CI/CD pipelines, health checks, and monitoring.'"
+    },
+    {
+      "text": "AI Context section instructs an agent not to suggest reverting to BullMQ without reading the failover incident",
+      "passed": false,
+      "evidence": "No AI Context section. No explicit guidance for AI agents. The closest is a reference to 'Internal post-mortem: Redis failover incident (reference: INC-0047)' in References, but no agent-targeted instructions."
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 3,
+    "total": 6,
+    "pass_rate": 0.5
+  },
+  "execution_metrics": {
+    "tool_calls": {"Read": 1, "Write": 2, "Bash": 2},
+    "total_tool_calls": 5,
+    "total_steps": 3,
+    "files_created": ["ADR-002-temporal-job-queue.md", "metrics.json"],
+    "errors_encountered": 1,
+    "output_chars": 4800,
+    "transcript_chars": 17456
+  }
+}

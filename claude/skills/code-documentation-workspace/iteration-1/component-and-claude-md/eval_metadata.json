@@ -1,0 +1,14 @@
+{
+  "eval_id": 3,
+  "eval_name": "component-and-claude-md",
+  "prompt": "I have an auth module that has this stub doc (evals/files/auth-module-stub.md) — it's pretty useless. We use JWT with refresh token rotation, access tokens expire in 15 minutes, refresh tokens last 7 days and are stored in Redis for instant revocation. Passwords hashed with bcrypt cost factor 12. The bcrypt cost was chosen to make brute force slow — don't lower it. Can you: (1) rewrite the component doc, and (2) generate a CLAUDE.md for this module so AI agents working on it don't break the security model?",
+  "assertions": [
+    "Component doc has Overview, Flow, Dependencies, Configuration, and Gotchas sections",
+    "Flow section describes the full login → access token → refresh → logout sequence",
+    "Configuration table includes JWT_SECRET, ACCESS_TOKEN_EXPIRY, REFRESH_TOKEN_EXPIRY, and REDIS_URL",
+    "Gotchas section mentions refresh token rotation race condition",
+    "CLAUDE.md has YAML frontmatter with type, module, last-updated, and stability fields",
+    "CLAUDE.md 'What NOT to Change' section explicitly warns against lowering bcrypt cost factor",
+    "CLAUDE.md has a 'Common Pitfalls for AI Agents' section"
+  ]
+}

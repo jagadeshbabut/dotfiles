@@ -1,0 +1,13 @@
+{
+  "eval_id": 1,
+  "eval_name": "inline-comments",
+  "prompt": "Here's our payment service file at evals/files/payment-service.ts. It has no inline comments and I'm onboarding a new engineer next week. Can you add inline comments to it — focusing on the parts that would confuse someone who didn't write it? Also flag any comments I should NOT add (things that are already obvious from the code).",
+  "assertions": [
+    "Comments explain WHY the idempotency key exists and what the TTL means",
+    "Comment explains the EU currency coercion and where this rule came from",
+    "Comment explains why card_declined breaks the retry loop immediately",
+    "Comment explains the exponential backoff retry delays (1s, 3s, 9s)",
+    "The output explicitly lists lines that should NOT have comments added",
+    "No comment just restates what the code already says (e.g., no 'increment counter' style)"
+  ]
+}
