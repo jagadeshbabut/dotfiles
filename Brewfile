@@ -13,8 +13,10 @@ brew "virtualfish"
 brew "eza"                 # ls with icons + git status
 brew "bat"                 # cat with syntax highlighting
 brew "ripgrep"             # grep replacement
+brew "fd"                  # fast find replacement
 brew "delta"               # git diff with syntax highlighting
 brew "htop"                # top replacement
+brew "zoxide"              # smart cd replacement
 
 # Git extras
 brew "lazygit"             # terminal UI for git

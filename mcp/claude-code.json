@@ -30,13 +30,9 @@
       "GRAFANA_API_KEY": "${GRAFANA_API_KEY}"
     }
   },
-  "aws": {
-    "command": "npx",
-    "args": ["-y", "@aws-mcp/server"],
-    "env": {
-      "AWS_PROFILE": "${AWS_PROFILE}",
-      "AWS_REGION": "${AWS_DEFAULT_REGION}"
-    }
+  "aws-mcp": {
+    "command": "uvx",
+    "args": ["mcp-proxy-for-aws@latest", "https://aws-mcp.us-east-1.api.aws/mcp", "--metadata", "AWS_REGION=us-east-1"]
   },
   "memory": {
     "command": "npx",
