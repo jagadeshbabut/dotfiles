@@ -47,7 +47,7 @@ app_icon = "mono"
 cursor_display_type = "bar"
 
 [appearance.window]
-override_opacity = 70
+override_opacity = 100
 override_blur = 1
 
 [notifications]

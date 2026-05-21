@@ -1,6 +1,6 @@
-function aws-login --description "Morning AWS SSO login - authenticates all profiles via slice-sso"
-    set -l sso_session "slice-sso"
-    set -l sso_url "https://d-9f67050f34.awsapps.com/start/"
+function aws-login --description "Morning AWS SSO login - authenticates all profiles via aws-sso"
+    set -l sso_session "aws-sso"
+    set -l sso_url "https://datasutram.awsapps.com/start/"
 
     echo "Logging into AWS SSO ($sso_session)..."
     echo "URL: $sso_url"
