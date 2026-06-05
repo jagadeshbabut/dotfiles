@@ -235,6 +235,10 @@ success "Written $CLAUDE_SETTINGS (hook path expanded)"
 create_symlink "$DOTFILES/claude/hooks/rtk-rewrite.sh" "$HOME/.claude/hooks/rtk-rewrite.sh"
 chmod +x "$HOME/.claude/hooks/rtk-rewrite.sh"
 
+# Statusline script
+create_symlink "$DOTFILES/claude/statusline-command.sh" "$HOME/.claude/statusline-command.sh"
+chmod +x "$HOME/.claude/statusline-command.sh"
+
 # Slash commands
 create_symlink "$DOTFILES/claude/commands/github-repo-audit.md" "$HOME/.claude/commands/github-repo-audit.md"
 create_symlink "$DOTFILES/claude/commands/incident-audit.md"    "$HOME/.claude/commands/incident-audit.md"
