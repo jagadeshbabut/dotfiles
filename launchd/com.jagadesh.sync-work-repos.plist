@@ -7,7 +7,7 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/jagadeshthangavelu/personal/dotfiles/launchd/sync_work_repos.sh</string>
+        <string>/Users/jaga/work/dotfiles/launchd/sync_work_repos.sh</string>
     </array>
 
     <key>StartInterval</key>
@@ -17,9 +17,9 @@
     <true/>
 
     <key>StandardOutPath</key>
-    <string>/Users/jagadeshthangavelu/personal/dotfiles/logs/sync_work_repos_stdout.log</string>
+    <string>/Users/jaga/work/dotfiles/logs/sync_work_repos_stdout.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/Users/jagadeshthangavelu/personal/dotfiles/logs/sync_work_repos_stderr.log</string>
+    <string>/Users/jaga/work/dotfiles/logs/sync_work_repos_stderr.log</string>
 </dict>
 </plist>

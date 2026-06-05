@@ -7,7 +7,7 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/jagadeshthangavelu/personal/dotfiles/launchd/periodic_cleanup.sh</string>
+        <string>/Users/jaga/work/dotfiles/launchd/periodic_cleanup.sh</string>
     </array>
 
     <key>StartCalendarInterval</key>
@@ -21,9 +21,9 @@
     </dict>
 
     <key>StandardOutPath</key>
-    <string>/Users/jagadeshthangavelu/personal/dotfiles/logs/periodic_cleanup_stdout.log</string>
+    <string>/Users/jaga/work/dotfiles/logs/periodic_cleanup_stdout.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/Users/jagadeshthangavelu/personal/dotfiles/logs/periodic_cleanup_stderr.log</string>
+    <string>/Users/jaga/work/dotfiles/logs/periodic_cleanup_stderr.log</string>
 </dict>
 </plist>

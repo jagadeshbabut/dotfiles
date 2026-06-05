@@ -5,8 +5,8 @@ Personal macOS setup — fish shell, starship prompt, AWS SSO via granted, Kuber
 ## Quick Start
 
 ```bash
-git clone git@github-personal:jagadeshbabut/dotfiles.git ~/personal/dotfiles
-cd ~/personal/dotfiles && ./install.sh
+git clone git@github-personal:jagadeshbabut/dotfiles.git ~/work/dotfiles
+cd ~/work/dotfiles && ./install.sh
 ```
 
 Open a new terminal. Done.
@@ -61,7 +61,7 @@ assume prod-banking # switch to specific profile
 ## File Structure
 
 ```
-~/personal/dotfiles/
+~/work/dotfiles/
 ├── install.sh              # One-command installer
 ├── Brewfile                # All tools (brew bundle)
 ├── fish/
@@ -85,7 +85,7 @@ assume prod-banking # switch to specific profile
 ├── starship/starship.toml  # Prompt config (Nerd Font icons, k8s, AWS)
 ├── git/
 │   ├── .gitconfig          # Work identity
-│   ├── .gitconfig-personal # Personal identity (auto-applied in ~/personal/)
+│   ├── .gitconfig-personal # Personal GitHub identity (jagadeshbabut@gmail.com)
 │   └── .gitignore_global   # Global gitignore
 ├── ssh/config              # Work + personal GitHub
 ├── karabiner/karabiner.json # Cmd↔Option swap for external keyboards

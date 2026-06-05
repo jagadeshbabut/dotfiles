@@ -2,9 +2,6 @@
 [include]
 	path = ~/.gitconfig.local
 
-[includeIf "gitdir:~/personal/"]
-	path = ~/.gitconfig-personal
-
 [credential]
 	helper = osxkeychain
 

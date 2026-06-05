@@ -2,8 +2,8 @@
 # ╔══════════════════════════════════════════════════════════════╗
 # ║           dotfiles — One-Command Installer                   ║
 # ║                                                              ║
-# ║   Usage: git clone <repo> ~/personal/dotfiles                ║
-# ║          cd ~/personal/dotfiles && ./install.sh              ║
+# ║   Usage: git clone <repo> ~/work/dotfiles                ║
+# ║          cd ~/work/dotfiles && ./install.sh              ║
 # ║   One-click: ./install.sh --yes                              ║
 # ╚══════════════════════════════════════════════════════════════╝
 
@@ -305,7 +305,7 @@ echo "  1. Open a new terminal (fish shell)"
 echo "  2. Add secrets to ~/.config/fish/local.fish (GITHUB_TOKEN, etc.)"
 echo "  3. Run 'aws-login' to authenticate with AWS SSO"
 echo "  4. Run 'assume <profile>' to switch AWS profiles"
-echo "  5. Add SSH keys: ~/.ssh/id_ed25519 (work) and ~/.ssh/id_ed25519_personal (personal)"
+echo "  5. Add SSH keys: ~/.ssh/id_ed25519 (work) and ~/.ssh/id_ed25519_personal (personal GitHub)"
 echo ""
 info "Quick reference:"
 echo "  aws-login          → Authenticate all AWS SSO profiles"
