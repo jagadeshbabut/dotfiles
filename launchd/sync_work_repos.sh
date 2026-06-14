@@ -1,9 +1,9 @@
 #!/bin/bash
 set -uo pipefail
 
-DOTFILES="$HOME/work/dotfiles"
+DOTFILES="$HOME/Work/dotfiles"
 OUTPUT_FILE="$DOTFILES/logs/sync_work_repos.log"
-WORK_DIR="$HOME/work"
+WORK_DIR="$HOME/Work"
 CONF_FILE="$DOTFILES/launchd/sync_work_repos.conf"
 
 log() {

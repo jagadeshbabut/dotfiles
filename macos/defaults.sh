@@ -93,12 +93,12 @@ success "Trackpad & Mission Control configured"
 # ══════════════════════════════════════════════════════════════
 info "Configuring Screenshots..."
 
-mkdir -p "$HOME/screenshots"
-defaults write com.apple.screencapture location -string "$HOME/screenshots"
+mkdir -p "$HOME/Screenshots"
+defaults write com.apple.screencapture location -string "$HOME/Screenshots"
 defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.screencapture disable-shadow -bool true
 
-success "Screenshots → ~/screenshots"
+success "Screenshots → ~/Screenshots"
 
 # ══════════════════════════════════════════════════════════════
 # Privacy

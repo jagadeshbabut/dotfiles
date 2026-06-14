@@ -1,7 +1,7 @@
 #!/bin/bash
 set -uo pipefail
 
-DOTFILES="$HOME/work/dotfiles"
+DOTFILES="$HOME/Work/dotfiles"
 LOG_FILE="$DOTFILES/logs/periodic_cleanup.log"
 
 log() {
@@ -13,7 +13,7 @@ log "=== periodic cleanup started ==="
 
 # node_modules older than 30 days
 log "--- node_modules cleanup ---"
-for dir in "$HOME/work"; do
+for dir in "$HOME/Work"; do
     [[ -d "$dir" ]] || continue
     find "$dir" -name "node_modules" -type d -prune -mtime +30 -print0 \
         | xargs -0 -r rm -rf

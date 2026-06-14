@@ -19,7 +19,7 @@ The real file always lives in this repo. The home directory holds a symlink.
 Always run `./install.sh` after making any change to dotfiles — adding files, editing configs, updating `install.sh` itself. This ensures symlinks are in place and nothing is left as a stale or missing link.
 
 ```bash
-cd /Users/jaga/work/dotfiles && ./install.sh --yes
+cd /Users/jaga/Work/dotfiles && ./install.sh --yes
 ```
 
 ## Adding a New File

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-WORK_DIR="${1:-$HOME/work}"
+WORK_DIR="${1:-$HOME/Work}"
 OUTPUT_DIR="${2:-$WORK_DIR/zipped}"
 
 mkdir -p "$OUTPUT_DIR"

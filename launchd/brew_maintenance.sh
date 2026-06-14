@@ -1,7 +1,7 @@
 #!/bin/bash
 set -uo pipefail
 
-DOTFILES="$HOME/work/dotfiles"
+DOTFILES="$HOME/Work/dotfiles"
 LOG_FILE="$DOTFILES/logs/brew_maintenance.log"
 BREW="/opt/homebrew/bin/brew"
 

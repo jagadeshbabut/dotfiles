@@ -5,8 +5,8 @@ Personal macOS setup — fish shell, starship prompt, AWS SSO via granted, Kuber
 ## Quick Start
 
 ```bash
-git clone git@github-personal:jagadeshbabut/dotfiles.git ~/work/dotfiles
-cd ~/work/dotfiles && ./install.sh
+git clone git@github-personal:jagadeshbabut/dotfiles.git ~/Work/dotfiles
+cd ~/Work/dotfiles && ./install.sh
 ```
 
 Open a new terminal. Done.
@@ -38,7 +38,7 @@ Open a new terminal. Done.
 Shows what matters at a glance:
 
 ```
-your-mbp ~/work/my-project  main !2  ⎈ staging:default  prod-banking (ap-south-1)
+your-mbp ~/Work/my-project  main !2  ⎈ staging:default  prod-banking (ap-south-1)
 ➜
 ```
 
@@ -61,7 +61,7 @@ assume prod-banking # switch to specific profile
 ## File Structure
 
 ```
-~/work/dotfiles/
+~/Work/dotfiles/
 ├── install.sh              # One-command installer
 ├── Brewfile                # All tools (brew bundle)
 ├── fish/

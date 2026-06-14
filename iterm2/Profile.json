@@ -7,7 +7,7 @@
       "Command": "/opt/homebrew/bin/fish",
       "Login Shell": false,
       "Custom Directory": "Yes",
-      "Working Directory": "~/work",
+      "Working Directory": "~/Work",
 
       "Terminal Type": "xterm-256color",
       "Character Encoding": 4,

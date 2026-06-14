@@ -2,8 +2,8 @@
 # ╔══════════════════════════════════════════════════════════════╗
 # ║           dotfiles — One-Command Installer                   ║
 # ║                                                              ║
-# ║   Usage: git clone <repo> ~/work/dotfiles                ║
-# ║          cd ~/work/dotfiles && ./install.sh              ║
+# ║   Usage: git clone <repo> ~/Work/dotfiles                ║
+# ║          cd ~/Work/dotfiles && ./install.sh              ║
 # ║   One-click: ./install.sh --yes                              ║
 # ╚══════════════════════════════════════════════════════════════╝
 
@@ -47,9 +47,9 @@ else
     success "Homebrew already installed"
 fi
 
-# ── Step 1b: Create ~/work folder ────────────────────────────
-mkdir -p "$HOME/work"
-success "~/work is ready"
+# ── Step 1b: Create ~/Work folder ────────────────────────────
+mkdir -p "$HOME/Work"
+success "~/Work is ready"
 
 # ── Step 2: Brew bundle ───────────────────────────────────────
 info "Installing tools from Brewfile..."
