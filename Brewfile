@@ -71,6 +71,7 @@ cask "font-jetbrains-mono-nerd-font"
 
 # Apps
 cask "claude-code"
+cask "docker-desktop"      # Docker Desktop
 cask "maccy"               # Clipboard manager
 cask "wispr-flow"          # Voice-to-text dictation
 

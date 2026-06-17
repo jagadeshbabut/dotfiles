@@ -2,7 +2,7 @@
 Host github.com
     HostName github.com
     User git
-    IdentityFile ~/.ssh/id_ed25519
+    IdentityFile ~/.ssh/ed25519_official
     IdentitiesOnly yes
 
 # Personal GitHub account
