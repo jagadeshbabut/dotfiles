@@ -64,6 +64,7 @@ play_notification_sound = true
 
 [terminal]
 show_terminal_zero_state_block = false
+osc52_clipboard_access = "write_only"
 
 [terminal.input]
 completions_open_while_typing = true
@@ -138,7 +139,7 @@ executable = "/opt/homebrew/Cellar/fish/4.7.1/bin/fish"
 
 [session.working_directory_config]
 advanced_mode = false
-global = { custom_dir = "~/Work", mode = "custom_dir" }
+global = { custom_dir = "~/Work", mode = "previous_dir" }
 new_tab = { custom_dir = "", mode = "previous_dir" }
 new_window = { custom_dir = "", mode = "previous_dir" }
 split_pane = { custom_dir = "", mode = "previous_dir" }

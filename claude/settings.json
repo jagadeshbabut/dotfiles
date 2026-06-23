@@ -1,0 +1,10 @@
+{
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "mcpServers": {
+    "fireflies": {
+      "command": "$HOME/.claude/scripts/fireflies-mcp.sh"
+    }
+  }
+}

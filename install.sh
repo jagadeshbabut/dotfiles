@@ -246,6 +246,10 @@ create_symlink "$DOTFILES/claude/commands/setup-aws-laptop.md"  "$HOME/.claude/c
 
 # Scripts
 create_symlink "$DOTFILES/claude/scripts/incident_audit.py" "$HOME/.claude/scripts/incident_audit.py"
+create_symlink "$DOTFILES/claude/scripts/fireflies-mcp.sh"     "$HOME/.claude/scripts/fireflies-mcp.sh"
+chmod +x "$HOME/.claude/scripts/fireflies-mcp.sh"
+create_symlink "$DOTFILES/claude/scripts/fireflies-summary.py" "$HOME/.claude/scripts/fireflies-summary.py"
+chmod +x "$HOME/.claude/scripts/fireflies-summary.py"
 
 # Skills — symlink each skill directory individually so ~/.claude/skills/ can
 # hold both dotfiles-managed and locally-added skills side by side
